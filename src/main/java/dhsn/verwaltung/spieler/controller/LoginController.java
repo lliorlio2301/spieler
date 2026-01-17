@@ -7,6 +7,9 @@ import dhsn.verwaltung.spieler.service.BenutzerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -20,12 +23,17 @@ public class LoginController {
     }
 
     @GetMapping()
-    public String getMethodName(Model model, @RequestParam(required = false, value = "bye") String param) {
-        if (param!=null) {
-            
+    public String login(
+        Model model, 
+        @RequestParam(required = false, value = "bye") String logout,
+        @RequestParam(required = false, value = "fehler") String fehler
+    ) {
+        if (logout!=null) {
             model.addAttribute("bye", "Erfolgreich abgemeldet");
-        }       
+        }
+        if (fehler!=null) {
+            model.addAttribute("fehler", "Falscher Benutzername oder Passwort");
+        }
         return "login";
     }
-    
 }
