@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    
-    private BenutzerService benutzerService;
 
-    public LoginController (BenutzerService benutzerService) {
-        this.benutzerService = benutzerService;
-    }
-
-    @GetMapping()
+    @GetMapping
     public String login(
         Model model, 
         @RequestParam(required = false, value = "bye") String logout,
