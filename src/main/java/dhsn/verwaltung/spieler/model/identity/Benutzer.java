@@ -33,10 +33,27 @@ public class Benutzer {
     private String nachname;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable( // Spring configures it automatically but it is configurated, sothat the names of the columns doesn't change if the model's variables change
+    @JoinTable( 
+    // Spring configures it automatically but it is configurated, sothat the names of the columns doesn't change if the model's variables change
         name = "benutzer_roles", 
         joinColumns = @JoinColumn(name = "benutzer_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Roles> roles = new ArrayList<>();       
+    private List<Roles> roles = new ArrayList<>();
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPasswort() {
+        return passwort;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
+    }       
 }
