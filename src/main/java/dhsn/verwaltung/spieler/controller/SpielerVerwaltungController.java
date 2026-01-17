@@ -10,8 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/spielerverwaltung")
 public class SpielerVerwaltungController {
     @GetMapping("/startseite")
-    public String getMethodName() {
+    public String getStartseite() {
         return "startseite";
     }
+    
+    @GetMapping("/homepage")
+    public String getHomepage() {
+        return "homepage";
+    }
+    
 
 }
