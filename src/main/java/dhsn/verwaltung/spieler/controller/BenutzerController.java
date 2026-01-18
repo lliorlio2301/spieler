@@ -9,7 +9,8 @@ import dhsn.verwaltung.spieler.service.BenutzerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 
 @Controller
@@ -22,24 +23,28 @@ public class BenutzerController {
     }
 
     @GetMapping
-    public String registrierung() {
-        return "sign_up";
+    public String registrierung(Model model) {
+        model.addAttribute("benutzer", new Benutzer());
+        return "registrierung";
     }
 
     @PostMapping("/newUser")
-    public String postMethodName(
-        @RequestBody Benutzer benutzer,
+    public String postnewUser(
+        //ModelAttribute anstatt BodyRequest weil model.addAttribute
+        //RequestBody schickt JSON
+        @ModelAttribute("benutzer") Benutzer benutzer,
         Model model
     ) {
-        if(null==benutzerService.register(benutzer)) {
+        var benutzer1 = benutzerService.register(benutzer);
+        if(null==benutzer1) {
             model.addAttribute("regError", "Fehler bei der Registrierung");
             return"redirect:home/registrierung";
         }
-        return "redirect:/Registrierung/regErfolg";
+        return "redirect:/registrierung/regErfolg";
     }
 
     @GetMapping("/regErfolg")
-    public String getMethodName(@RequestParam String param) {
+    public String getMethodName() {
         return "regErfolg";
     }
 }
