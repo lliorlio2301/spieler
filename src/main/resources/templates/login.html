@@ -6,6 +6,26 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="" method="post"></form>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+    </div>
+
+    <div class="seite">
+        <h2>Anmeldung</h2>
+    </div>
+    <div class="formular">
+        <form th:action="@{/login/login_auth}" method="post">
+            <div>
+                <label for="username">Username: </label>
+                <input type="text" id="username" th>    
+            </div>
+            <div>
+                <label for="password">Password: </label>
+                <input type="text" id="password">    
+            </div>
+            <button type="submit">Anmelden</button>            
+        </form>
+    </div>
 </body>
 </html>
