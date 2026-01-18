@@ -31,7 +31,7 @@
                 <select th:field="*{role}" id="role">
                     <option th:each="r : ${role}"
                             th:value="${r}"
-                            th:text="${r}">ROLE_BENUTZER</option>
+                            th:text="${r.name}">ROLE_BENUTZER</option>
                 </select>
             </div>
             <button type="submit">Registrieren</button>            

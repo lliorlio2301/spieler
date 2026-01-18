@@ -26,8 +26,13 @@ public class BenutzerController {
     @GetMapping
     public String registrierung(Model model) {
         model.addAttribute("benutzer", new Benutzer());
+        
+        //Ohne SuperUser_Role schicken
+        Role [] values = new Role[2];
+        values[0] = Role.ROLE_BENUTZER;
+        values[1] = Role.ROLE_ADMIN;
         //Role Values an HTML übergeben
-        model.addAttribute("role", Role.values());
+        model.addAttribute("role", values);
         return "registrierung";
     }
 
