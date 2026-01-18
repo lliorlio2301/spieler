@@ -18,6 +18,4 @@ public class SpielerVerwaltungController {
     public String getHomepage() {
         return "homepage";
     }
-    
-
 }
