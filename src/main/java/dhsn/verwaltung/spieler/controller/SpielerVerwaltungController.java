@@ -17,5 +17,5 @@ public class SpielerVerwaltungController {
     @GetMapping("/homepage")
     public String getHomepage() {
         return "homepage";
-    }
+    }   
 }
