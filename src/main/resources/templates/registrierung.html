@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Registrierung</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+    </div>
+
+    <div class="seite">
+        <h2>Registrierung</h2>
+    </div>
+    <div class="formular">
+        <form th:action="@{/registrierung/newUser}" method="post" th:object="${benutzer}">
+            <div>
+                <label for="username">Username: </label>
+                <input type="text" th:field="*{username}" id="username">    
+            </div>
+            <div>
+                <label for="password">Password: </label>
+                <input type="text" th:field="*{passwort}" id="password">    
+            </div>
+            <div>
+                <label for="role">Role: </label>
+                <!--
+                roles mit [] weil das Feld in benutzer eine ArrayList ist
+                .name weil die Liste Role Objekte enthält 
+                -->
+                <input type="text" th:field="*{rolesListe[0].name}" id="role">    
+            </div>
+            <button type="submit">Registrieren</button>            
+        </form>
+    </div>
+    
+</body>
+</html>

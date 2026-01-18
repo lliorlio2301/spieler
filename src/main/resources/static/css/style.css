@@ -2,3 +2,12 @@ img {
   width: 100px;
   height: auto;
 }
+
+.leiste_oben {
+  display: flex;
+  flex-direction: row; /*Horizontal Ausrichtung */
+}
+
+.formular label {
+  font-weight: bold;
+}
