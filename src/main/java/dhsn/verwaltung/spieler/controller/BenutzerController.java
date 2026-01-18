@@ -5,16 +5,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
+import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.BenutzerService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 
 @Controller
-@RequestMapping("/registrierung")
+@RequestMapping("/spielerverwaltung/admin/registrierung")
+
 public class BenutzerController {
     private BenutzerService benutzerService;
 
@@ -25,6 +26,8 @@ public class BenutzerController {
     @GetMapping
     public String registrierung(Model model) {
         model.addAttribute("benutzer", new Benutzer());
+        //Role Values an HTML übergeben
+        model.addAttribute("role", Role.values());
         return "registrierung";
     }
 
@@ -35,12 +38,12 @@ public class BenutzerController {
         @ModelAttribute("benutzer") Benutzer benutzer,
         Model model
     ) {
-        var benutzer1 = benutzerService.register(benutzer);
-        if(null==benutzer1) {
+        var benutzerTest = benutzerService.register(benutzer);
+        if(null==benutzerTest) {
             model.addAttribute("regError", "Fehler bei der Registrierung");
-            return"redirect:home/registrierung";
+            return"redirect:/spielerverwaltung/admin/registrierung";
         }
-        return "redirect:/registrierung/regErfolg";
+        return "redirect:/spielerverwaltung/admin/registrierung/regErfolg";
     }
 
     @GetMapping("/regErfolg")
