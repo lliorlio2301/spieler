@@ -8,29 +8,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // so that Spring beginns with this Security Configuration
 public class SecurityConf {
 
-  private UserDetailsService userDetailsService;
-  
-  public SecurityConf(UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
-  }
-
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception { 
     // HTTP Security baut die Reihenfolge unsere angepasste SicherheitKette
 
     httpSecurity.authorizeHttpRequests(request -> request
-
       // css and images folder are allowed, otherwise the loginpage would see without desing
-      .requestMatchers("/anmelden", "/spielerverwaltung/startseite", 
-      "/registrierung/**" ,"/images/**", "/css/**").permitAll()
+      .requestMatchers("/anmelden", "/spielerverwaltung/startseite" ,"/images/**", "/css/**").permitAll()
       //Fehlerursache sehen
       .requestMatchers("/error").permitAll()
+      .requestMatchers("/**").hasRole("SUPER") //SUPER_ROLE kann alle Seiten besuchen
       .requestMatchers("/spielerverwaltung/admin/**").hasRole("ADMIN") //Für Seiten mit AdminRechten
       .anyRequest().authenticated()); // It checks the auth any other request
     
@@ -49,14 +43,22 @@ public class SecurityConf {
     return httpSecurity.build();
   }
 
+  //Damit Bcrypt der Standard festgelegt wird
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    //Encryptiert das eingetragenen Passwort und vergleicht den HASH mit dem vor DB
+    return new BCryptPasswordEncoder(4);
+  }
+
   //AuthProvider angepasst, um den AuthProzess selbst zu übernehmen. 
   //Wichtig für die Verbindung mit der DB
   @Bean
-  public AuthenticationProvider authenticationProvider() {
-    
+  public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
     DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(userDetailsService);
-    //Encryptiert das Passwort vom DB-Schicht
-    authenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder(4));
+
+    //Obwohl PasswordEnco schon oben deklariert wurde, muss es hier nochmal gemacht werden, 
+    // weil der AuthProv neu und angepasst wird und dieses Feld muss nochmal konfiguriert werden
+    authenticationProvider.setPasswordEncoder(passwordEncoder());
     return authenticationProvider;
   }
 }
