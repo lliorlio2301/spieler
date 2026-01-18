@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Login</title>
 </head>
 <body>
@@ -15,17 +17,23 @@
         <h2>Anmeldung</h2>
     </div>
     <div class="formular">
-        <form th:action="@{/login/login_auth}" method="post">
+        <form th:action="@{/anmelden/login_auth}" method="post">
             <div>
                 <label for="username">Username: </label>
-                <input type="text" id="username" th>    
+                <!-- nameParameter erforderlich bei input, 
+                 sodass SprSec das Feld findet und zuordnet-->
+                <input type="text" name="username" id="username">    
             </div>
             <div>
                 <label for="password">Password: </label>
-                <input type="text" id="password">    
+                <input type="text" name="password" id="password">    
             </div>
             <button type="submit">Anmelden</button>            
         </form>
+    </div>
+    <div class="">
+        <p th:if="${error}">Falscher Username oder Passwort</p>
+        <p th:if="${bye}">Aufwiedersehen!</p>
     </div>
 </body>
 </html>
