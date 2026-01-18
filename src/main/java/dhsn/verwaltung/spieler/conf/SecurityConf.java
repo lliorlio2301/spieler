@@ -27,26 +27,30 @@ public class SecurityConf {
     httpSecurity.authorizeHttpRequests(request -> request
 
       // css and images folder are allowed, otherwise the loginpage would see without desing
-      .requestMatchers("/login", "/spielerverwaltung/startseite", 
-      "/registrierung" ,"/images/**", "/css/**").permitAll()
+      .requestMatchers("/anmelden", "/spielerverwaltung/startseite", 
+      "/registrierung/**" ,"/images/**", "/css/**").permitAll()
+      //Fehlerursache sehen
+      .requestMatchers("/error").permitAll()
       .requestMatchers("/spielerverwaltung/admin/**").hasRole("ADMIN") //Für Seiten mit AdminRechten
       .anyRequest().authenticated()); // It checks the auth any other request
     
       //Das übernimmt all den Auth.Prozess. Man braucht es nicht, im LoginController umzusetzen
     httpSecurity.formLogin(customizer -> customizer
-      .loginPage("/login")
-      .loginProcessingUrl("/login/login_auth") // PostRequest, which works the Auth
+      .loginPage("/anmelden")
+      .permitAll()
+      .loginProcessingUrl("/anmelden/login_auth") // PostRequest, which works the Auth
+      .failureUrl("/anmelden?error") 
       .defaultSuccessUrl("/spielerverwaltung/homepage", true));
 
     httpSecurity.logout(customizer -> customizer
-      .logoutSuccessUrl("/login?bye") //
+      .logoutSuccessUrl("/anmelden?bye") //
       .permitAll()); // Every user can logout also when their token ist already expired
     
     return httpSecurity.build();
   }
 
   //AuthProvider angepasst, um den AuthProzess selbst zu übernehmen. 
-  // Wichtig für die Verbindung mit der DB
+  //Wichtig für die Verbindung mit der DB
   @Bean
   public AuthenticationProvider authenticationProvider() {
     
