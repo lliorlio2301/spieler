@@ -8,6 +8,14 @@ img {
   flex-direction: row; /*Horizontal Ausrichtung */
 }
 
+.formular {
+  margin: 10px;
+}
+
+.formular div {
+  padding: 10px;
+}
+
 .formular label {
   font-weight: bold;
 }
