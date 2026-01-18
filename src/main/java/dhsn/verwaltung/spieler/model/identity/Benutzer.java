@@ -29,9 +29,6 @@ public class Benutzer {
     
     private String passwort;
 
-    private String vorname;
-    private String nachname;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable( 
     // Spring configures it automatically but it is configurated, sothat the names of the columns doesn't change if the model's variables change
@@ -39,7 +36,11 @@ public class Benutzer {
         joinColumns = @JoinColumn(name = "benutzer_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Roles> roles = new ArrayList<>();
+    private List<Roles> rolesListe = new ArrayList<>();
+
+    public Benutzer(){
+        rolesListe.add(new Roles());
+    }
 
     public String getUsername() {
         return username;
@@ -55,5 +56,14 @@ public class Benutzer {
 
     public void setPasswort(String passwort) {
         this.passwort = passwort;
-    }       
+    }
+
+    public List<Roles> getRolesListe() {
+        return rolesListe;
+    }
+
+    public void setRolesListe(List<Roles> rolesListe) {
+        this.rolesListe = rolesListe;
+    }
+
 }
