@@ -15,12 +15,10 @@ public class Roles {
 
     private String name;
 
+    public Roles(){}
+
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -30,6 +28,4 @@ public class Roles {
     public void setName(String name) {
         this.name = name;
     }
-
-    
 }
