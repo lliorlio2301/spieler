@@ -17,7 +17,7 @@
         <h2>Registrierung</h2>
     </div>
     <div class="formular">
-        <form th:action="@{/registrierung/newUser}" method="post" th:object="${benutzer}">
+        <form th:action="@{/spielerverwaltung/admin/registrierung/newUser}" method="post" th:object="${benutzer}">
             <div>
                 <label for="username">Username: </label>
                 <input type="text" th:field="*{username}" id="username">    
@@ -25,14 +25,14 @@
             <div>
                 <label for="password">Password: </label>
                 <input type="text" th:field="*{passwort}" id="password">    
-            </div>
-            <div>
-                <label for="role">Role: </label>
-                <!--
-                roles mit [] weil das Feld in benutzer eine ArrayList ist
-                .name weil die Liste Role Objekte enthält 
-                -->
-                <input type="text" th:field="*{rolesListe[0].name}" id="role">    
+            </div>            
+            <div class="">
+                <label for="role">Rolle wählen:</label>
+                <select th:field="*{role}" id="role">
+                    <option th:each="r : ${role}"
+                            th:value="${r}"
+                            th:text="${r}">ROLE_BENUTZER</option>
+                </select>
             </div>
             <button type="submit">Registrieren</button>            
         </form>
