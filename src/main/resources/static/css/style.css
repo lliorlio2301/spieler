@@ -6,6 +6,7 @@ img {
 .leiste_oben {
   display: flex;
   flex-direction: row; /*Horizontal Ausrichtung */
+  gap: 25px;
 }
 
 .formular {
@@ -18,4 +19,8 @@ img {
 
 .formular label {
   font-weight: bold;
+}
+
+.nachricht {
+  font-size: xx-large;
 }
