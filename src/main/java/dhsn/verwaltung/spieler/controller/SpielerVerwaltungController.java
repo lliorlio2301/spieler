@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
+
 @Controller
 @RequestMapping("/spielerverwaltung")
 public class SpielerVerwaltungController {
@@ -17,5 +19,11 @@ public class SpielerVerwaltungController {
     @GetMapping("/homepage")
     public String getHomepage() {
         return "homepage";
-    }   
+    }
+    
+    @GetMapping("/super")
+    public String getSuperUser() {
+        return "superUser";
+    }
+    
 }
