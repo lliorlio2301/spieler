@@ -10,7 +10,11 @@
 <body>
     <div class="leiste_oben">
         <img th:src="@{/images/logo.jpg}" alt="App_Logo">
-        <h1>Spielerverwaltung</h1>
+        <!-- logout in SpriSecur funktioniert nur per POST wegen CSRF-Token -->
+        <form th:action="@{/abmelden}" method="post" class="button">
+            <button type="submit">Abmelden</button>
+        </form>
+        <h1>Admin Homepage</h1>
     </div>
 
     <div class="seite">
