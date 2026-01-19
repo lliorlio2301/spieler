@@ -1,5 +1,8 @@
 package dhsn.verwaltung.spieler.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +31,9 @@ public class BenutzerController {
         model.addAttribute("benutzer", new Benutzer());
         
         //Ohne SuperUser_Role schicken
-        Role [] values = new Role[2];
-        values[0] = Role.ROLE_BENUTZER;
-        values[1] = Role.ROLE_ADMIN;
+        List<Role> roles = List.of(Role.ROLE_ADMIN, Role.ROLE_SPIELER);
         //Role Values an HTML übergeben
-        model.addAttribute("role", values);
+        model.addAttribute("role", roles);
         return "registrierung";
     }
 
