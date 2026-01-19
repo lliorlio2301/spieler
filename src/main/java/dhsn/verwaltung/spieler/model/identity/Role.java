@@ -2,8 +2,8 @@ package dhsn.verwaltung.spieler.model.identity;
 
 public enum Role {
    ROLE_SUPER("SuperUser"),
-   ROLE_BENUTZER("Normaler Benutzer"),
-   ROLE_ADMIN("Admin");
+   ROLE_ADMIN("Admin"),
+   ROLE_SPIELER("Spieler");
 
    private final String name; 
 
