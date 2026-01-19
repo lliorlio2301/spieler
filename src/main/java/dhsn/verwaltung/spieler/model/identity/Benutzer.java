@@ -14,7 +14,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "benutzer")
-@Inheritance(strategy = InheritanceType.JOINED) //Spieler hat eine eigene Tabelle
+//Spieler hat eine eigene Tabelle, aber taucht hier auch auf 
+//Es werden 2 INSERT automatisch ausgeführt
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Benutzer {
 
     @Id
@@ -29,6 +31,17 @@ public class Benutzer {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public Benutzer(){}
+
+    public Benutzer(String username, String passwort, Role role) {
+        this.username = username;
+        this.passwort = passwort;
+        this.role = role;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
     public String getUsername() {
         return username;
     }
