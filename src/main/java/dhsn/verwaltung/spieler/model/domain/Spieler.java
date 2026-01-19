@@ -3,10 +3,9 @@ package dhsn.verwaltung.spieler.model.domain;
 import java.time.LocalDate;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
+import dhsn.verwaltung.spieler.model.identity.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -18,12 +17,27 @@ public class Spieler extends Benutzer{
 
     private String vorname;
     private String nachname;
-    private Integer alter;
     private LocalDate geburtsdatum;
 
+    private Position position;
+    
+    @Column(unique = true, nullable = true)
     private int rueckennummer;
     
     public Spieler(){}
+
+    
+
+    public Spieler(String username, String password,
+        String vorname, String nachname, LocalDate geburtsdatum, 
+        Position position, int rueckennummer) {
+        super(username, password, Role.ROLE_SPIELER);
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.geburtsdatum = geburtsdatum;
+        this.position = position;
+        this.rueckennummer = rueckennummer;
+    }
 
     public String getVorname() {
         return vorname;
@@ -42,11 +56,7 @@ public class Spieler extends Benutzer{
     }
 
     public Integer getAlter() {
-        return alter;
-    }
-
-    public void setAlter(Integer alter) {
-        this.alter = alter;
+        return null;
     }
 
     public LocalDate getGeburtsdatum() {
@@ -65,7 +75,11 @@ public class Spieler extends Benutzer{
         this.rueckennummer = rueckennummer;
     }
 
-    
-    
+    public Position getPosition() {
+        return position;
+    }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }
