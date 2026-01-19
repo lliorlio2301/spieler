@@ -8,10 +8,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "benutzer")
+@Inheritance(strategy = InheritanceType.JOINED) //Spieler hat eine eigene Tabelle
 public class Benutzer {
 
     @Id
