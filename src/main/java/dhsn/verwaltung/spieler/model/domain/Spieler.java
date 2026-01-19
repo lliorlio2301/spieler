@@ -1,52 +1,29 @@
 package dhsn.verwaltung.spieler.model.domain;
 
+import java.time.LocalDate;
+
+import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "spieler")
-public class Spieler {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @ManyToOne(fetch = FetchType.LAZY) //Lazy because it is not neccesary to have all the data like in "role"
-    @JoinColumn(name = "verein_id", nullable = false)
-    private Verein verein;
+//Referenz zu Benutzer Tabelle - Es ist FK & PK - Kein ID-Feld notwendig
+@PrimaryKeyJoinColumn(name = "benutzer_id") 
+public class Spieler extends Benutzer{
 
     private String vorname;
     private String nachname;
+    private Integer alter;
+    private LocalDate geburtsdatum;
+
+    private int rueckennummer;
     
     public Spieler(){}
-
-    public Spieler(Verein verein, String vorname, String nachname) {
-        this.verein = verein;
-        this.vorname = vorname;
-        this.nachname = nachname;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Verein getVerein() {
-        return verein;
-    }
-
-    public void setVerein(Verein verein) {
-        this.verein = verein;
-    }
 
     public String getVorname() {
         return vorname;
@@ -64,6 +41,31 @@ public class Spieler {
         this.nachname = nachname;
     }
 
+    public Integer getAlter() {
+        return alter;
+    }
+
+    public void setAlter(Integer alter) {
+        this.alter = alter;
+    }
+
+    public LocalDate getGeburtsdatum() {
+        return geburtsdatum;
+    }
+
+    public void setGeburtsdatum(LocalDate geburtsdatum) {
+        this.geburtsdatum = geburtsdatum;
+    }
+
+    public int getRueckennummer() {
+        return rueckennummer;
+    }
+
+    public void setRueckennummer(int rueckennummer) {
+        this.rueckennummer = rueckennummer;
+    }
+
+    
     
 
 }
