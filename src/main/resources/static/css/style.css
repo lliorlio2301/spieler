@@ -3,11 +3,27 @@ img {
   height: auto;
 }
 
+label {
+  font-weight: bold;
+}
+
+.listeSpieler {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .zentrierung {
   display: flex;             
   justify-content: center; /*horizontal */
   align-items: center; /*vertikal*/
-  min-height: 100vh;
+  /* min-height: 50vh; */
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5px;
 }
 
 .leiste_oben {
@@ -24,10 +40,24 @@ img {
   padding: 10px;
 }
 
-.formular label {
-  font-weight: bold;
-}
-
 .nachricht {
   font-size: xx-large;
 }
+/* Mit ButtonGenerator erstellt*/
+.leisteButton { 
+
+    text-decoration: none; /* kein Unterstrich */
+    color: initial;
+    padding: 2px 6px; /* Standard-Button-Abstand */
+    border: 1px solid #767676; /* Standard-Rand */
+    background-color: #efefef; /* Standard-Grau */
+
+    display: inline-block; /* Button Verhalten beim Klicken */
+    text-align: center;
+    font-size: 13.33px; /* Standard-Schriftgröße von Browsern */
+    font-family: Arial, sans-serif;
+    cursor: default; /* 'default' für Pfeil, kein Zeiger mit dem Finger*/
+    
+}
+
+
