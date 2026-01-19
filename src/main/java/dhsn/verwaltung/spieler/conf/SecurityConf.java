@@ -22,10 +22,11 @@ public class SecurityConf {
     httpSecurity.authorizeHttpRequests(request -> request
       // css and images folder are allowed, otherwise the loginpage would see without desing
       .requestMatchers("/anmelden", "/spielerverwaltung/startseite" ,"/images/**", "/css/**").permitAll()
+      
       //Fehlerursache sehen
       .requestMatchers("/error").permitAll()
-      .requestMatchers("/**").hasRole("SUPER") //SUPER_ROLE kann alle Seiten besuchen
-      .requestMatchers("/spielerverwaltung/admin/**").hasRole("ADMIN") //Für Seiten mit AdminRechten
+      .requestMatchers("/spielerverwaltung/super/**").hasRole("SUPER")
+      .requestMatchers("/spielerverwaltung/admin/**").hasAnyRole("ADMIN", "SUPER") //Für Seiten mit AdminRechten
       .anyRequest().authenticated()); // It checks the auth any other request
     
       //Das übernimmt all den Auth.Prozess. Man braucht es nicht, im LoginController umzusetzen
@@ -37,7 +38,9 @@ public class SecurityConf {
       .defaultSuccessUrl("/spielerverwaltung/homepage", true));
 
     httpSecurity.logout(customizer -> customizer
+      .logoutUrl("/abmelden")
       .logoutSuccessUrl("/anmelden?bye") //
+      .deleteCookies("JSESSIONID") //Sonst wird nicht richtig abgemeldet
       .permitAll()); // Every user can logout also when their token ist already expired
     
     return httpSecurity.build();
