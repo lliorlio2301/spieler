@@ -1,5 +1,7 @@
 package dhsn.verwaltung.spieler.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +38,12 @@ public class BenutzerService implements UserDetailsService {
 
   public Benutzer register(Benutzer benutzer) {
     benutzer.setPasswort(bEncoder.encode(benutzer.getPasswort()));
-    return benutzerRepository.save(benutzer);
+    // Gibt Objekt zurück, da erst bei save() die Id in der DB erstellt wird
+    // Jetzt als Prüfer für Methode im Controller
+    return benutzerRepository.save(benutzer);  
+  }
+
+  public List<Benutzer> getAllBenutzer() {
+    return benutzerRepository.findAll();
   }
 }
