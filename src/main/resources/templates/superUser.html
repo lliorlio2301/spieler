@@ -9,17 +9,19 @@
 </head>
 <body>
     <div class="leiste_oben">
-        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
-        <h1>Spielerverwaltung</h1>
-        <a th:href="@{/spielerverwaltung/homepage}">Homepage</a>
-        <form th:action="@{/abmelden}" method="post" class="button">
-            <button type="submit">Abmelden</button>
-        </form>
+                <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+                <h1>Spielerverwaltung</h1>
+                <a th:href="@{/spielerverwaltung/homepage}">Homepage</a>
+                <form th:action="@{/abmelden}" method="post" class="button">
+                    <button type="submit">Abmelden</button>
+                </form>
+            </div>
+    <div class="zentrierung">
+        <div class="inhalt">
+            <div class="seite">
+                <h2>SuperUser</h2>
+            </div>
+        </div>
     </div>
-
-    <div class="seite">
-        <h2>SuperUser</h2>
-    </div>
-    
 </body>
 </html>

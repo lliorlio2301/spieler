@@ -3,6 +3,13 @@ img {
   height: auto;
 }
 
+.zentrierung {
+  display: flex;             
+  justify-content: center; /*horizontal */
+  align-items: center; /*vertikal*/
+  min-height: 100vh;
+}
+
 .leiste_oben {
   display: flex;
   flex-direction: row; /*Horizontal Ausrichtung */

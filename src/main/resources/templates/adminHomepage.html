@@ -14,16 +14,16 @@
         <form th:action="@{/abmelden}" method="post" class="button">
             <button type="submit">Abmelden</button>
         </form>
-        <h1>Admin Homepage</h1>
+        <h1>Spielerverwaltung</h1>
     </div>
+    <div class="zentrierung">
+        <div class="seite">
+            <h2>Admin Homepage</h2>
+        </div>
 
-    <div class="seite">
-        <h2>Admin Homepage</h2>
+        <div class="">
+            <a th:href="@{/registrierung}">Registrieren</a> 
+        </div>
     </div>
-
-    <div class="">
-        <a th:href="@{/registrierung}">Registrieren</a> 
-    </div>
-    
 </body>
 </html>
