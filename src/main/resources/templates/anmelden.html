@@ -21,7 +21,7 @@
             <div>
                 <label for="username">Username: </label>
                 <!-- nameParameter erforderlich bei input, 
-                 sodass SprSec das Feld findet und zuordnet-->
+                 sodass SpringSecurity das Feld findet und zuordnet-->
                 <input type="text" name="username" id="username">    
             </div>
             <div>
@@ -31,7 +31,7 @@
             <button type="submit">Anmelden</button>            
         </form>
     </div>
-    <div class="">
+    <div class="nachricht">
         <p th:if="${error}">Falscher Username oder Passwort</p>
         <p th:if="${bye}">Aufwiedersehen!</p>
     </div>
