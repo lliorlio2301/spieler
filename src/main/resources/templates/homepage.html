@@ -11,15 +11,21 @@
     <div class="leiste_oben">
         <img th:src="@{/images/logo.jpg}" alt="App_Logo">
         <h1>Spielerverwaltung</h1>
-        <a th:href="@{/spielerverwaltung/admin/registrierung}">Admin</a>
-        
-        <form th:action="@{/abmelden}" method="post" class="button">
-            <button type="submit">Abmelden</button>
-        </form>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/admin/registrierung}" class="leisteButton">Admin</a>
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
     </div>
+
+    <div class="seite">
+        <h2>Homepage</h2>
+    </div>
+
     <div class="zentrierung">
-        <div class="seite">
-            <h2>Homepage</h2>
+        <div class="inhalt">
+
         </div>
     </div>
 </body>
