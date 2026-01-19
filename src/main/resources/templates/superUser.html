@@ -11,15 +11,33 @@
     <div class="leiste_oben">
                 <img th:src="@{/images/logo.jpg}" alt="App_Logo">
                 <h1>Spielerverwaltung</h1>
-                <a th:href="@{/spielerverwaltung/homepage}">Homepage</a>
-                <form th:action="@{/abmelden}" method="post" class="button">
-                    <button type="submit">Abmelden</button>
-                </form>
+                <div class="vertical">
+                    <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>
+                    <form th:action="@{/abmelden}" method="post" class="button">
+                        <button type="submit">Abmelden</button>
+                    </form>
+                </div>
             </div>
-    <div class="zentrierung">
+    <div class="TitelSeite">
+    <h2>SuperUser</h2>
+    </div>
+    <div class=""> 
         <div class="inhalt">
-            <div class="seite">
-                <h2>SuperUser</h2>
+            <div class="vertical">
+                <h3>Benutzerliste</h3>
+                <ul class="listeSpieler">
+                    <li th:each="benutzer: ${listeBenutzer}">
+                        <label for="id">Id: </label>
+                        <span th:text="${benutzer.id}"></span>
+                        <br>
+                        <label for="username">Username: </label>
+                        <span th:text="${benutzer.username}"></span>
+                        <br>
+                        <label for="role">Rückennummer: </label>
+                        <span th:text="${benutzer.role.name}"></span>
+                    </li>  
+                </ul>
+
             </div>
         </div>
     </div>

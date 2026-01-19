@@ -4,27 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html xmlns:th="http://www.thymeleaf.org">
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
     <title>Registrierung</title>
 </head>
 <body>
     <div class="leiste_oben">
         <img th:src="@{/images/logo.jpg}" alt="App_Logo">
         <h1>Spielerverwaltung</h1>
-        <a th:href="@{/spielerverwaltung/super}">SuperUser</a> 
-        <form th:action="@{/abmelden}" method="post" class="button">
-            <button type="submit">Abmelden</button>
-        </form>
-    <div class="zentrierung"> 
+
+        <div class="vertical">
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>      
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
         </div>
-    
-        <div class="seite">
-            <h2>Neue Benutzer</h2>
-        </div>
-    
-        <div class="">
-            <a th:href="@{/spielerverwaltung/admin/registrierung/neuerAdmin}">neuen </a>
-            <a th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">SuperUser</a>  
+
+    </div>
+
+    <div class="Titelseite">
+        <h2>Neue Benutzer</h2>
+    </div>
+
+    <div class=""> 
+        <div class="inhalt">
+            <div class="vertical">
+                <a th:href="@{/spielerverwaltung/admin/registrierung/neuerAdmin}">Neuer Admin</a>
+                <a th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">Neuer Spieler</a>
+                <h3>Aktuelle Spieler</h3>
+                <ul class="listeSpieler">
+                    <li th:each="spieler: ${listeSpieler}">
+                        <label for="vorname">Vorname: </label>
+                        <span th:text="${spieler.vorname}"></span>
+                        <br>
+                        <label for="nachname">Nachname: </label>
+                        <span th:text="${spieler.nachname}"></span>
+                        <br>
+                        <label for="geburtsdatum">Geburtsdatum: </label>
+                        <span th:text="${spieler.geburtsdatum}"></span>
+                        <br>
+                        <label for="position">Position: </label>
+                        <span th:text="${spieler.position.bezeichnung}"></span>
+                        <br>
+                        <label for="rueckennummer">Rückennummer: </label>
+                        <span th:text="${spieler.rueckennummer}"></span>
+                    </li>  
+                </ul>
+
+            </div>
         </div>
     </div>
 </body>
