@@ -1,6 +1,9 @@
 package dhsn.verwaltung.spieler.model.domain;
 
 import java.time.LocalDate;
+import java.time.Period;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.Role;
@@ -17,6 +20,8 @@ public class Spieler extends Benutzer{
 
     private String vorname;
     private String nachname;
+    // Für HTML-input Feld
+    @DateTimeFormat(pattern = "yyyy-MM-dd") 
     private LocalDate geburtsdatum;
 
     private Position position;
@@ -56,7 +61,7 @@ public class Spieler extends Benutzer{
     }
 
     public Integer getAlter() {
-        return null;
+        return Period.between(geburtsdatum, LocalDate.now()).getYears();
     }
 
     public LocalDate getGeburtsdatum() {
