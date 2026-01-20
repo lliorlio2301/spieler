@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <title>Registrierung</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+
+        <div class="vertical">
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>      
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="Titelseite">
+        <h2>Spieler Editieren</h2>
+    </div>
+    <div class="">
+        <div class="vertical">
+             <div class="formular">
+                <form th:action="@{/spielerverwaltung/super/benutzer/{id}(id=${benutzer.id})}" method="post" th:object="${benutzer}">
+                    <div>
+                        <h3>Benutzerdaten: </h3>
+                        <label for="username">Username: </label>
+                        <input type="text" th:field="*{username}" id="username">    
+                    </div>
+                    <div>
+                        <label for="password">Password: </label>
+                        <input type="password" th:field="*{passwort}" id="password">    
+                    </div> 
+                    <div class="">
+                        <label for="roles">Rolle wählen:</label>
+                        <select th:field="*{role}" id="roles">
+                            <option th:each="role : ${roles}"
+                                    th:value="${role}"
+                                    th:text="${role.name}">Rolles</option>
+                        </select>
+                    </div>
+                    <button type="submit">Bestätigen</button>            
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
