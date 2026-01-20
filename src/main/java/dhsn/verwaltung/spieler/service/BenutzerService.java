@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
@@ -16,12 +17,14 @@ import dhsn.verwaltung.spieler.repository.BenutzerRepository;
 public class BenutzerService implements UserDetailsService {
 
   private BenutzerRepository benutzerRepository;
+  private PasswordEncoder passwordEncoder;
 
   //Verantwortlich das eingegebene Passwort zu encrypten
   private BCryptPasswordEncoder bEncoder = new BCryptPasswordEncoder(4);
 
-  public BenutzerService (BenutzerRepository benutzerRepository) {
+  public BenutzerService (BenutzerRepository benutzerRepository, PasswordEncoder pe) {
     this.benutzerRepository = benutzerRepository;
+    this.passwordEncoder = pe;
   }
 
   @Override
@@ -31,7 +34,7 @@ public class BenutzerService implements UserDetailsService {
     Benutzer benutzer = benutzerRepository.findByUsername(username);
 
     if (benutzer==null) {
-      throw new UsernameNotFoundException("User wurde nicht gefunden");
+      throw new UsernameNotFoundException("Username: "+ username+" wurde nicht gefunden");
     }
     return new BenutzerDTO(benutzer);
   }
@@ -45,5 +48,28 @@ public class BenutzerService implements UserDetailsService {
 
   public List<Benutzer> getAllBenutzer() {
     return benutzerRepository.findAll();
+  }
+
+  public Benutzer getBenutzerById(Long id) {
+    return benutzerRepository.findById(id).orElseThrow(()-> 
+      new UsernameNotFoundException("Id Unbekannt: " + id));
+  }
+
+  public void speicherEditBenutzer(Benutzer formularBenutzer, Long id) {
+    Benutzer datenBankBenutzer = benutzerRepository.findById(id).
+    orElseThrow(()-> new UsernameNotFoundException("ID Unbekannt: " + id));
+
+    datenBankBenutzer.setUsername(formularBenutzer.getUsername());
+    datenBankBenutzer.setRole(formularBenutzer.getRole());
+
+    if (
+      !passwordEncoder.encode(formularBenutzer.getPasswort()).equals(datenBankBenutzer.getPasswort()) &&
+      !formularBenutzer.getPasswort().isEmpty() && formularBenutzer.getPasswort() != null
+
+    ) {
+      datenBankBenutzer.setPasswort(passwordEncoder.encode(formularBenutzer.getPasswort()));
+    }
+
+    benutzerRepository.save(datenBankBenutzer);
   }
 }
