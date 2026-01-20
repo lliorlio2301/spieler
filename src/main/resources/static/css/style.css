@@ -7,11 +7,54 @@ label {
   font-weight: bold;
 }
 
+.tabelleContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
+
+.tabelleStartseite {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
+  max-width: 800px;
+}
+
+/* Abstand zwischen Zellen */
+.tabelleStartseite th,
+.tabelleStartseite td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+} 
+
+.tabelleAdmin {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
+  max-width: 950px;
+}
+
+.tabelleAdmin th,
+.tabelleAdmin td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.spalteKlein{
+  width: 7%;
+}
+
+.link {
+  width: auto;
+}
+
 .listeSpieler {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
+
 .zentrierung {
   display: flex;             
   justify-content: center; /*horizontal */
