@@ -24,20 +24,35 @@
     <div class=""> 
         <div class="inhalt">
             <div class="vertical">
-                <h3>Benutzerliste</h3>
-                <ul class="listeSpieler">
-                    <li th:each="benutzer: ${listeBenutzer}">
-                        <label for="id">Id: </label>
-                        <span th:text="${benutzer.id}"></span>
-                        <br>
-                        <label for="username">Username: </label>
-                        <span th:text="${benutzer.username}"></span>
-                        <br>
-                        <label for="role">Rückennummer: </label>
-                        <span th:text="${benutzer.role.name}"></span>
-                    </li>  
-                </ul>
+                <div class="tabelleContainer">
+                <h3>Liste Benutzer</h3>
+                    <table class="tabelleAdmin">
+                        <thead>
+                            <tr>
+                                <th class="spalteKlein">ID</th>
+                                <th>Username</th>
+                                <th>Rolle</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="benutzer : ${listeBenutzer}">
+                                <td th:text="${benutzer.id}">1</td>
+                                <td th:text="${benutzer.username}">user</td>                                         
+                                <td th:text="${benutzer.role.name}">Torwart</td>
 
+                                <td>
+                                    <!-- 
+                                    {id} Platzhalter 
+                                        Zuweisung des Platzhalters (id=${spieler.id}) 
+                                    -->
+                                    <a class="leisteButton" 
+                                    th:href="@{/spielerverwaltung/super/benutzer/{id}(id=${benutzer.id})}"
+                                    >Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
             </div>
         </div>
     </div>
