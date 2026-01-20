@@ -26,32 +26,49 @@
     <div class="Titelseite">
         <h2>Neue Benutzer</h2>
     </div>
-
-    <div class=""> 
-        <div class="inhalt">
-            <div class="vertical">
-                <a th:href="@{/spielerverwaltung/admin/registrierung/neuerAdmin}">Neuer Admin</a>
-                <a th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">Neuer Spieler</a>
-                <h3>Aktuelle Spieler</h3>
-                <ul class="listeSpieler">
-                    <li th:each="spieler: ${listeSpieler}">
-                        <label for="vorname">Vorname: </label>
-                        <span th:text="${spieler.vorname}"></span>
-                        <br>
-                        <label for="nachname">Nachname: </label>
-                        <span th:text="${spieler.nachname}"></span>
-                        <br>
-                        <label for="geburtsdatum">Geburtsdatum: </label>
-                        <span th:text="${spieler.geburtsdatum}"></span>
-                        <br>
-                        <label for="position">Position: </label>
-                        <span th:text="${spieler.position.bezeichnung}"></span>
-                        <br>
-                        <label for="rueckennummer">Rückennummer: </label>
-                        <span th:text="${spieler.rueckennummer}"></span>
-                    </li>  
-                </ul>
-
+    <div class="">
+        <div class="vertical">
+            <div class="">
+                <a class="link" th:href="@{/spielerverwaltung/admin/registrierung/neuerAdmin}">Neuer Admin</a>
+                <a class="link" th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">Neuer Spieler</a>
+            </div>
+            <div class="tabelleContainer">
+                <h3>Mannschaftsübersicht</h3>
+                <table class="tabelleAdmin">
+                    <thead>
+                        <tr>
+                            <th class="spalteKlein">ID</th>
+                            <th>Username</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                            <th>Geburtsdatum</th>
+                            <th>Position</th>
+                            <th>Rückennummer</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="spieler : ${listeSpieler}">
+                            <td th:text="${spieler.id}">1</td>
+                            <td th:text="${spieler.username}">user</td>                               
+                            <td th:text="${spieler.vorname}">Max</td>
+                            <td th:text="${spieler.nachname}">Mustermann</td>
+                            <!-- #temporals um die Ausgabe des Datums zu steuern -->
+                            <td th:text="${#temporals.format(spieler.geburtsdatum, 'dd-MM-yyyy')}">23.01.2004</td>
+                            <td th:text="${spieler.position.bezeichnung}">Torwart</td>
+                            <td th:text="${spieler.rueckennummer}">1</td>
+                            <td>
+                                <!-- 
+                                {id} Platzhalter 
+                                    Zuweisung des Platzhalters (id=${spieler.id}) 
+                                -->
+                                <a class="leisteButton" 
+                                th:href="@{/spielerverwaltung/admin/spieler/{id}(id=${spieler.id})}"
+                                >Edit</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
