@@ -69,8 +69,13 @@
                                     th:text="${p.bezeichnung}">Positionen</option>
                         </select>
                     </div>
-                    <button type="submit">Bestätigen</button>            
+                    <div>
+                    <button type="submit">Bestätigen</button>        
+                    </div> 
                 </form>
+                <form th:action="@{/spielerverwaltung/admin/spieler/delete/{id}(id=${spieler.id})}" method="post">
+                        <button type="submit" class="loeschenButton">Löschen</button>
+                </form> 
             </div>
         </div>
     </div>
