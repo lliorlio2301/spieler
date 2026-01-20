@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="spieler : ${spielerListe}">
+                            <tr th:each="spieler : ${spielerDTOListe}">
                                 <td th:text="${spieler.vorname}">Max</td>
                                 <td th:text="${spieler.nachname}">Mustermann</td>
                                 <td th:text="${spieler.getAlter()}">25</td>

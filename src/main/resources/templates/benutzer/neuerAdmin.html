@@ -12,7 +12,7 @@
         <img th:src="@{/images/logo.jpg}" alt="App_Logo">
         <h1>Spielerverwaltung</h1>
         <div class="vertical">
-            <a th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a> 
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a> 
             <form th:action="@{/abmelden}" method="post" class="button">
                 <button type="submit">Abmelden</button>
             </form> 
@@ -28,11 +28,13 @@
                 <form th:action="@{/spielerverwaltung/super/neuerAdmin}" method="post" th:object="${admin}">
                     <div>
                         <label for="username">Username: </label>
-                        <input type="text" th:field="*{username}" id="username">    
+                        <input type="text" th:field="*{username}" id="username">
+                        <p th:if="${#fields.hasErrors('username')}" class="errorText" th:errors="*{username}">FEHLER</p>    
                     </div>
                     <div>
-                        <label for="password">Password: </label>
-                        <input type="text" th:field="*{passwort}" id="password">    
+                        <label for="password">Passwort: </label>
+                        <input type="text" th:field="*{passwort}" id="password">
+                        <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
                     </div>            
                     <button type="submit">Registrieren</button>            
                 </form>

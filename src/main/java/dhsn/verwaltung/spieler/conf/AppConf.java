@@ -34,27 +34,27 @@ public class AppConf {
             benutzer.setPasswort(passwordEncoder.encode("welcome"));
             benutzer.setRole(Role.ROLE_SUPER);
             benutzerRepository.save(benutzer);
-            System.out.printf("Superadmin %n%s %n%s", "Username: SuperAdmin", "welcome");
+            System.out.printf("Superadmin %n%s %n%s", "Username: SuperAdmin", "Passwort: welcome");
 
             //Objekte Generieren für Testen
             List<Spieler> testSpieler = List.of(
-                new Spieler("jorge.osorio", passwordEncoder.encode("welcome1"), 
+                new Spieler("jorge.osorio", passwordEncoder.encode("welcome1"), Role.ROLE_SPIELER ,  
                             "Jorge", "Osorio", 
                             LocalDate.of(2004, 1, 23), 
                             Position.MITTELFELD, 4),
-                new Spieler("titan.olli", passwordEncoder.encode("welcome2"), 
+                new Spieler("titan.olli", passwordEncoder.encode("welcome2"), Role.ROLE_SPIELER ,
                             "Oliver", "Kahn", 
                             LocalDate.of(1995, 6, 15), 
                             Position.TORWART, 1),
-                new Spieler("the.wall", passwordEncoder.encode("welcome3"), 
+                new Spieler("the.wall", passwordEncoder.encode("welcome3"), Role.ROLE_SPIELER ,
                             "Niklas", "Süle", 
                             LocalDate.of(1997, 9, 3), 
                             Position.ABWEHRSPIELER, 25),
-                new Spieler("goalgetter", passwordEncoder.encode("welcome4"), 
+                new Spieler("goalgetter", passwordEncoder.encode("welcome4"), Role.ROLE_SPIELER ,
                             "Jamal", "Musiala", 
                             LocalDate.of(2003, 2, 26), 
                             Position.MITTELSTUERMER, 10),
-                new Spieler("kimmich.j", passwordEncoder.encode("welcome5"), 
+                new Spieler("kimmich.j", passwordEncoder.encode("welcome5"), Role.ROLE_SPIELER ,
                             "Joshua", "Kimmich", 
                             LocalDate.of(1995, 2, 8), 
                             Position.MITTELFELD, 6)

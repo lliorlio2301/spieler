@@ -1,15 +1,11 @@
 package dhsn.verwaltung.spieler.controller;
 
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import dhsn.verwaltung.spieler.model.identity.Role;
-import dhsn.verwaltung.spieler.repository.BenutzerRepository;
 import dhsn.verwaltung.spieler.service.BenutzerService;
 import dhsn.verwaltung.spieler.service.SpielerService;
 
@@ -32,7 +28,7 @@ public class SpielerVerwaltungController {
 
     @GetMapping("/startseite")
     public String getStartseite(Model model) {
-        model.addAttribute("spielerListe", spielerService.getAlleSpieler());
+        model.addAttribute("spielerDTOListe", spielerService.getAlleSpielerAdmin());
         return "startseite";
     }
     

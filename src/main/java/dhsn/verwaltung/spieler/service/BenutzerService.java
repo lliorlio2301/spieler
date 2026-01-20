@@ -3,22 +3,18 @@ package dhsn.verwaltung.spieler.service;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
-import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
+
 import dhsn.verwaltung.spieler.repository.BenutzerRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class BenutzerService implements UserDetailsService {
+public class BenutzerService {
 
   private BenutzerRepository benutzerRepository;
   private PasswordEncoder passwordEncoder;
@@ -31,18 +27,7 @@ public class BenutzerService implements UserDetailsService {
     this.passwordEncoder = pe;
   }
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    System.out.println("Anmeldungversuch. Username: " + username);
-    
-    Benutzer benutzer = benutzerRepository.findByUsername(username);
-
-    if (benutzer==null) {
-      throw new UsernameNotFoundException("Username: "+ username+" wurde nicht gefunden");
-    }
-    return new BenutzerDTO(benutzer);
-  }
-
+  @Transactional
   public Benutzer register(Benutzer benutzer) {
     benutzer.setPasswort(bEncoder.encode(benutzer.getPasswort()));
     // Gibt Objekt zurück, da erst bei save() die Id in der DB erstellt wird

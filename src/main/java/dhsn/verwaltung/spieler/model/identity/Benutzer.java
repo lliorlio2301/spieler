@@ -11,6 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "benutzer")
@@ -25,7 +29,7 @@ public class Benutzer {
 
     @Column(unique = true, nullable = false)
     private String username;
-    
+
     private String passwort;
 
     @Enumerated(EnumType.STRING)

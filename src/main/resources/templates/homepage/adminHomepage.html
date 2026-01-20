@@ -15,7 +15,8 @@
         <h1>Spielerverwaltung</h1>
 
         <div class="vertical">
-            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>      
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>      
             <form th:action="@{/abmelden}" method="post" class="button">
                 <button type="submit">Abmelden</button>
             </form>
@@ -29,7 +30,7 @@
     <div class="">
         <div class="vertical">
             <div class="">
-                <a class="link" th:href="@{/spielerverwaltung/admin/registrierung/neuerAdmin}">Neuer Admin</a>
+                <a class="link" th:href="@{/spielerverwaltung/super/neuerAdmin}">Neuer Admin</a>
                 <a class="link" th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">Neuer Spieler</a>
             </div>
             <div class="tabelleContainer">

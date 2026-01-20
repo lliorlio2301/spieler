@@ -5,30 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html xmlns:th="http://www.thymeleaf.org">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Erfolg</title>
+    <title>FEHLER</title>
 </head>
 <body>
     <div class="leiste_oben">
         <img th:src="@{/images/logo.jpg}" alt="App_Logo">
         <h1>Spielerverwaltung</h1>
         <div class="vertical">
-            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>
-            <form th:action="@{/abmelden}" method="post" class="button">
-                <button type="submit">Abmelden</button>
-            </form> 
+            <a th:href="@{/spielerverwaltung/startseite}" class="leisteButton">Startseite</a> 
         </div>
     </div>
 
     <div class="Titelseite">
-        <h2>Erfolg</h2>
+        <h2>FEHLER</h2>
     </div>
-    <p>Deine Anfrage wurde erfolgreich verarbeitet</p>
+    <div class="inhalt">
+        <h3 th:text="${status} + ' ' + ${error}">Etwas ging schief</h3>
 
-    <div class="zentrierung"></div>    
-        <div class="inhalt">
-            <div>   
-            </div>
-        </div>
+        <p th:text="${message}">Es tut uns leid</p>
+        <a href="@{/spielerverwaltung/startseite}">Zurück zur Startseite</a>
     </div>
 </body>
 </html>

@@ -11,6 +11,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 @Table(name = "spieler")
@@ -18,25 +22,35 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "benutzer_id") 
 public class Spieler extends Benutzer{
 
+    @Valid
+
+    @NotBlank(message = "Dieses Feld darf nicht leer sein")
     private String vorname;
+
+    @NotBlank(message = "Dieses Feld darf nicht leer sein")
     private String nachname;
     // Für HTML-input Feld
-    @DateTimeFormat(pattern = "yyyy-MM-dd") 
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Dieses Feld darf nicht leer sein")
+    @Past(message = "Das Geburtsdatum muss in  der Vergangeheit liegen") 
     private LocalDate geburtsdatum;
 
+    @NotNull(message = "Dieses Feld darf nicht leer sein")
     private Position position;
     
-    @Column(unique = true, nullable = true)
+    @Column(unique = true)
+    @NotNull(message = "Dieses Feld darf nicht leer sein")
     private int rueckennummer;
     
     public Spieler(){}
 
     
 
-    public Spieler(String username, String password,
+    public Spieler(String username, String password, Role role,
         String vorname, String nachname, LocalDate geburtsdatum, 
         Position position, int rueckennummer) {
-        super(username, password, Role.ROLE_SPIELER);
+        super(username, password, role);
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtsdatum = geburtsdatum;

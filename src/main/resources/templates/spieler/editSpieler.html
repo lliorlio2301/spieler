@@ -15,7 +15,7 @@
         <h1>Spielerverwaltung</h1>
 
         <div class="vertical">
-            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>      
+            <a type="button" th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>      
             <form th:action="@{/abmelden}" method="post" class="button">
                 <button type="submit">Abmelden</button>
             </form>
@@ -29,25 +29,27 @@
     <div class="">
         <div class="vertical">
              <div class="formular">
-                <form th:action="@{/spielerverwaltung/admin/spieler/{id}(id=${spieler.id})}" method="post" th:object="${spieler}">
+                <form th:action="@{/spielerverwaltung/admin/spieler/{id}(id=${spielerDTO.id})}" method="post" th:object="${spielerDTO}">
                     <div>
-                        <h3>Benutzerdaten: </h3>
-                        <label for="username">Username: </label>
-                        <input type="text" th:field="*{username}" id="username">    
+                        <h3>Password Ändern</h3>
+                        <div>
+                            <label for="passwort">Passwort: </label>
+                            <input type="text" th:field="*{passwort}" id="passwort">    
+                        <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
                     </div>
-                    <div>
-                        <label for="password">Password: </label>
-                        <input type="password" th:field="*{passwort}" id="password">    
+
                     </div>
                         <h3>Spielerdaten: </h3>
                     <div>
                         <label for="vorname">Vorname: </label>
                         <input type="text" th:field="*{vorname}" id="vorname">    
+                        <p th:if="${#fields.hasErrors('vorname')}" class="errorText" th:errors="*{vorname}">FEHLER</p>    
                     </div>
                     <div>
                         <label for="nachname">Nachname: </label>
-                        <input type="text" th:field="*{nachname}" id="nachname">    
-                    </div>
+                        <input type="text" th:field="*{nachname}" id="nachname">
+                        <p th:if="${#fields.hasErrors('nachname')}" class="errorText" th:errors="*{nachname}">FEHLER</p>    
+                    </div>    
                     <div>
                         <label for="datum">Geburtsdatum: </label>
                         <!-- th:value bei # temp.. 
@@ -55,11 +57,13 @@
                         <input 
                         type="date" 
                         th:field="*{geburtsdatum}"
-                        id="datum">    
-                    </div>
+                        id="datum">
+                        <p th:if="${#fields.hasErrors('geburtsdatum')}" class="errorText" th:errors="*{geburtsdatum}">FEHLER</p>    
+                    </div>    
                     <div>
                         <label for="rueckennummer">Rückennummer: </label>
-                        <input type="number" th:field="*{rueckennummer}" id="rueckennummer">    
+                        <input type="number" th:field="*{rueckennummer}" id="rueckennummer">
+                        <p th:if="${#fields.hasErrors('rueckennummer')}" class="errorText" th:errors="*{rueckennummer}">FEHLER</p>    
                     </div>            
                     <div class="">
                         <label for="positionen">Position wählen:</label>
@@ -68,12 +72,13 @@
                                     th:value="${p}"
                                     th:text="${p.bezeichnung}">Positionen</option>
                         </select>
+                        <p th:if="${#fields.hasErrors('position')}" class="errorText" th:errors="*{position}">FEHLER</p>    
                     </div>
                     <div>
-                    <button type="submit">Bestätigen</button>        
+                        <button type="submit">Bestätigen</button>        
                     </div> 
                 </form>
-                <form th:action="@{/spielerverwaltung/admin/spieler/delete/{id}(id=${spieler.id})}" method="post">
+                <form th:action="@{/spielerverwaltung/admin/spieler/delete/{id}(id=${spielerDTO.id})}" method="post">
                         <button type="submit" class="loeschenButton">Löschen</button>
                 </form> 
             </div>
