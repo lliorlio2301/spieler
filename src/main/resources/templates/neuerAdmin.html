@@ -25,7 +25,7 @@
     <div class="zentrierung"></div>
         <div class="inhalt">
             <div class="formular">
-                <form th:action="@{/spielerverwaltung/admin/registrierung/neuerAdmin}" method="post" th:object="${admin}">
+                <form th:action="@{/spielerverwaltung/super/neuerAdmin}" method="post" th:object="${admin}">
                     <div>
                         <label for="username">Username: </label>
                         <input type="text" th:field="*{username}" id="username">    
