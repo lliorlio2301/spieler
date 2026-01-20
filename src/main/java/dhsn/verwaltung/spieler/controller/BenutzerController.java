@@ -1,8 +1,5 @@
 package dhsn.verwaltung.spieler.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,74 +14,70 @@ import dhsn.verwaltung.spieler.service.SpielerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-@RequestMapping("/spielerverwaltung/admin/registrierung")
+@RequestMapping("/spielerverwaltung/admin")
 
 public class BenutzerController {
-    private BenutzerService benutzerService;
-    private SpielerService spielerService;
+  private BenutzerService benutzerService;
+  private SpielerService spielerService;
 
-    public BenutzerController(BenutzerService bs, SpielerService ss) {
-        this.benutzerService = bs;
-        this.spielerService = ss;
-    }
+  public BenutzerController(BenutzerService bs, SpielerService ss) {
+    this.benutzerService = bs;
+    this.spielerService = ss;
+  }
 
-    @GetMapping
-    public String registrierung(Model model) {
-        model.addAttribute("listeSpieler", spielerService.getAlleSpieler());    
-        return "registrierung";
-    }
+  @GetMapping("/registrierung")
+  public String registrierung(Model model) {
+    model.addAttribute("listeSpieler", spielerService.getAlleSpieler());
+    return "registrierung";
+  }
 
-    @GetMapping("/neuerAdmin")
-    public String getNeuenAdmin(Model model) {
-        model.addAttribute("admin", new Benutzer());
-        return "neuerAdmin";
-    }
+  @GetMapping("/registrierung/neuerSpieler")
+  public String getneuerSpieler(Model model) {
+    model.addAttribute("positionen", Position.values());
+    model.addAttribute("spieler", new Spieler());
+    return "neuerSpieler";
+  }
 
-    @GetMapping("/neuerSpieler")
-    public String getneuerSpieler(Model model) {
-        model.addAttribute("positionen", Position.values());
-        model.addAttribute("spieler", new Spieler());
-        return "neuerSpieler";
-    }
+  @PostMapping("/registrierung/neuerSpieler")
+  public String postneuerSpieler(
+      @ModelAttribute("spieler") Spieler spieler,
+      Model model
+  ) {
     
-    @PostMapping("/neuerAdmin")
-    public String postneuerAdmin(
-        //ModelAttribute anstatt BodyRequest weil model.addAttribute
-        //RequestBody schickt JSON
-        @ModelAttribute("admin") Benutzer benutzer,
-        Model model
-    ) {
-        benutzer.setRole(Role.ROLE_ADMIN);
-        var benutzerTest = benutzerService.register(benutzer);
-        if(null==benutzerTest) {
-            model.addAttribute("regError", "Fehler bei der Registrierung");
-            return"redirect:/spielerverwaltung/admin/registrierung";
-        }
-        return "redirect:/spielerverwaltung/admin/registrierung/regErfolg";
+    spieler.setRole(Role.ROLE_SPIELER);
+    
+    var spielerTest = benutzerService.register(spieler);
+    if (null == spielerTest) {
+      model.addAttribute("regError", "Fehler bei der Registrierung");
+      return "redirect:/spielerverwaltung/admin/registrierung";
     }
+    return "redirect:/spielerverwaltung/admin/registrierung/regErfolg";
+  }
 
-    @PostMapping("/neuerSpieler")
-    public String postneuerSpieler(
-        @ModelAttribute("spieler") Spieler spieler,
-        Model model
-    ) {
-        spieler.setRole(Role.ROLE_SPIELER);
-        var spielerTest = benutzerService.register(spieler);
-        if(null==spielerTest) {
-            model.addAttribute("regError", "Fehler bei der Registrierung");
-            return"redirect:/spielerverwaltung/admin/registrierung";
-        }
-        return "redirect:/spielerverwaltung/admin/registrierung/regErfolg";
-    }
+  @GetMapping("/registrierung/regErfolg")
+  public String getMethodName() {
+    return "regErfolg";
+  }
 
-    @GetMapping("/regErfolg")
-    public String getMethodName() {
-        return "regErfolg";
-    }
+  @GetMapping("/spieler/{id}")
+  // PathVariable weil {id} eine Varialbe ist
+  // @RequestParam ist für z.B. ?name=jorge
+  public String editSpieler(Model model, @PathVariable Long id) {
+    model.addAttribute("spieler",spielerService.getSpieler(id));
+    model.addAttribute("positionen", Position.values());
+    return "editSpieler";
+  }
+
+  @PostMapping("/spieler/{id}")
+  public String editSpieler(
+      @ModelAttribute("spieler") Spieler spieler,
+      @PathVariable Long id) {
+
+    spielerService.speichernEditSpieler(spieler, id);
+
+    return "regErfolg";
+  }
 }
