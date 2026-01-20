@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.repository.BenutzerRepository;
 import dhsn.verwaltung.spieler.service.BenutzerService;
+import dhsn.verwaltung.spieler.service.SpielerService;
 
 
 
@@ -21,32 +22,22 @@ import dhsn.verwaltung.spieler.service.BenutzerService;
 public class SpielerVerwaltungController {
 
     BenutzerService benutzerService;
-
+    SpielerService spielerService;
     
 
-    public SpielerVerwaltungController(BenutzerService bs) {
-    this.benutzerService = bs;
+    public SpielerVerwaltungController(BenutzerService bs, SpielerService ss) {
+        this.benutzerService = bs;
+        this.spielerService =ss;
     }
 
     @GetMapping("/startseite")
-    public String getStartseite() {
+    public String getStartseite(Model model) {
+        model.addAttribute("spielerListe", spielerService.getAlleSpieler());
         return "startseite";
     }
     
     @GetMapping("/homepage")
     public String getHomepage() {
         return "homepage";
-    }
-    
-    @GetMapping("/super")
-    public String getSuperUser(Model model) {
-       
-        model.addAttribute("listeBenutzer", benutzerService
-        .getAllBenutzer()
-        .stream()
-        .filter(b->b.getRole()!=Role.ROLE_SUPER)
-        .collect(Collectors.toList())
-    );
-        return "superUser";
-    }    
+    }  
 }
