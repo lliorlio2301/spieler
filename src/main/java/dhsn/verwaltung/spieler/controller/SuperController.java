@@ -33,13 +33,13 @@ public class SuperController {
         .filter(b->b.getRole()!=Role.ROLE_SUPER)
         .collect(Collectors.toList())
     );
-        return "superUser";
+        return "homepage/superUserHomepage";
     }  
 
     @GetMapping("/neuerAdmin")
         public String getNeuenAdmin(Model model) {
         model.addAttribute("admin", new Benutzer());
-        return "neuerAdmin";
+        return "benutzer/neuerAdmin";
     }
 
     @PostMapping("/neuerAdmin")
@@ -61,14 +61,20 @@ public class SuperController {
     public String getEditBenutzer(Model model, @PathVariable Long id) {
         model.addAttribute("benutzer", benutzerService.getBenutzerById(id));
         model.addAttribute("roles", Role.values());
-        return "editBenutzer";
+        return "benutzer/editBenutzer";
     }
 
     @PostMapping("/benutzer/{id}")
-    public String getEditBenutzerPost(
+    public String postEditBenutzer(
         @ModelAttribute("benutzer") Benutzer benutzer,
         @PathVariable Long id) {
         benutzerService.speicherEditBenutzer(benutzer, id);
-        return "regErfolg";
+        return "erfolg";
+    }
+
+    @PostMapping("/benutzer/delete/{id}")
+    public String deleteBenutzer(@PathVariable Long id) {
+        benutzerService.deleteBenutzer(id);
+        return "erfolg";
     }
 }

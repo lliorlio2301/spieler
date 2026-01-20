@@ -2,16 +2,20 @@ package dhsn.verwaltung.spieler.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
 import dhsn.verwaltung.spieler.repository.BenutzerRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BenutzerService implements UserDetailsService {
@@ -52,12 +56,14 @@ public class BenutzerService implements UserDetailsService {
 
   public Benutzer getBenutzerById(Long id) {
     return benutzerRepository.findById(id).orElseThrow(()-> 
-      new UsernameNotFoundException("Id Unbekannt: " + id));
+      new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
   }
 
+  @Transactional
   public void speicherEditBenutzer(Benutzer formularBenutzer, Long id) {
+
     Benutzer datenBankBenutzer = benutzerRepository.findById(id).
-    orElseThrow(()-> new UsernameNotFoundException("ID Unbekannt: " + id));
+    orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
 
     datenBankBenutzer.setUsername(formularBenutzer.getUsername());
     datenBankBenutzer.setRole(formularBenutzer.getRole());
@@ -71,5 +77,13 @@ public class BenutzerService implements UserDetailsService {
     }
 
     benutzerRepository.save(datenBankBenutzer);
+  }
+
+  @Transactional
+  public void deleteBenutzer(Long id) {
+    if (!benutzerRepository.existsById(id)) {
+     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"); 
+    }
+    benutzerRepository.deleteById(id);
   }
 }

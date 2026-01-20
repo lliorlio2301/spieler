@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dhsn.verwaltung.spieler.model.domain.Position;
 import dhsn.verwaltung.spieler.model.domain.Spieler;
-import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.BenutzerService;
 import dhsn.verwaltung.spieler.service.SpielerService;
@@ -31,14 +30,14 @@ public class BenutzerController {
   @GetMapping("/registrierung")
   public String registrierung(Model model) {
     model.addAttribute("listeSpieler", spielerService.getAlleSpieler());
-    return "registrierung";
+    return "homepage/adminHomepage";
   }
 
   @GetMapping("/registrierung/neuerSpieler")
   public String getneuerSpieler(Model model) {
     model.addAttribute("positionen", Position.values());
     model.addAttribute("spieler", new Spieler());
-    return "neuerSpieler";
+    return "spieler/neuerSpieler";
   }
 
   @PostMapping("/registrierung/neuerSpieler")
@@ -54,30 +53,34 @@ public class BenutzerController {
       model.addAttribute("regError", "Fehler bei der Registrierung");
       return "redirect:/spielerverwaltung/admin/registrierung";
     }
-    return "redirect:/spielerverwaltung/admin/registrierung/regErfolg";
-  }
-
-  @GetMapping("/registrierung/regErfolg")
-  public String getMethodName() {
-    return "regErfolg";
+    return "redirect:/spielerverwaltung/erfolg";
   }
 
   @GetMapping("/spieler/{id}")
   // PathVariable weil {id} eine Varialbe ist
   // @RequestParam ist für z.B. ?name=jorge
+
   public String editSpieler(Model model, @PathVariable Long id) {
     model.addAttribute("spieler",spielerService.getSpieler(id));
     model.addAttribute("positionen", Position.values());
-    return "editSpieler";
+    return "spieler/editSpieler";
   }
 
   @PostMapping("/spieler/{id}")
   public String editSpieler(
       @ModelAttribute("spieler") Spieler spieler,
-      @PathVariable Long id) {
+      @PathVariable("id") Long id) {
 
     spielerService.speichernEditSpieler(spieler, id);
 
-    return "regErfolg";
+    return "redirect:/spielerverwaltung/erfolg";
+  }
+
+  @PostMapping("/spieler/delete/{id}")
+  public String deleteSpieler(
+      @PathVariable("id") Long id) {
+    spielerService.deleteSpieler(id);
+    System.out.println("PASSIERT");
+    return "redirect:/spielerverwaltung/erfolg";
   }
 }
