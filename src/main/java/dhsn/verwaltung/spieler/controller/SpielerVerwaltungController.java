@@ -38,6 +38,12 @@ public class SpielerVerwaltungController {
     
     @GetMapping("/homepage")
     public String getHomepage() {
-        return "homepage";
-    }  
+        return "homepage/homepage";
+    } 
+    
+    @GetMapping("/erfolg")
+    public String getErfolg() {
+        return "erfolg";
+    }
+    
 }

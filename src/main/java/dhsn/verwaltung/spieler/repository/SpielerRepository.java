@@ -7,5 +7,5 @@ import dhsn.verwaltung.spieler.model.domain.Spieler;
 
 @Repository
 public interface SpielerRepository extends JpaRepository<Spieler, Long> {
-    
+
 }

@@ -59,7 +59,6 @@ label {
   display: flex;             
   justify-content: center; /*horizontal */
   align-items: center; /*vertikal*/
-  /* min-height: 50vh; */
 }
 
 .vertical {
@@ -76,11 +75,17 @@ label {
 }
 
 .formular {
+  display: flex;
+  flex-direction: column;
   margin: 10px;
 }
 
 .formular div {
   padding: 10px;
+}
+
+.loeschenButton {
+  margin-left: 10px;
 }
 
 .nachricht {
