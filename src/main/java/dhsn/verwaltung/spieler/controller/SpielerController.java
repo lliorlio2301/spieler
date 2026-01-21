@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dhsn.verwaltung.spieler.model.domain.Position;
 import dhsn.verwaltung.spieler.model.domain.SpielerBasicDTO;
 import dhsn.verwaltung.spieler.model.domain.SpielerRegisterDTO;
+import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.SpielerService;
 import jakarta.validation.Valid;
 
@@ -44,12 +45,16 @@ public class SpielerController {
   public String postneuerSpieler(
       @ModelAttribute("spielerDTO") @Valid SpielerRegisterDTO spielerDTO, BindingResult br,
       Model model) {
+
+    spielerDTO.setRole(Role.ROLE_SPIELER);
     
     if(br.hasErrors()){
+      model.addAttribute("positionen", Position.values());
       return "spieler/neuerSpieler"; //HTML nochmal schicken 
     }
     
     var spielerTest = spielerService.register(spielerDTO);
+    
     if (null == spielerTest) {
       model.addAttribute("regError", "Fehler bei der Registrierung");
       return "redirect:/spielerverwaltung/admin/registrierung";
