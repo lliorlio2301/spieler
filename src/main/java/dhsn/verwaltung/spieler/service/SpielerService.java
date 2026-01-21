@@ -55,6 +55,7 @@ public class SpielerService {
     passwordEncoder.encode(spielerDTO.getPasswort()), spielerDTO.getRole(),
     spielerDTO.getVorname(), spielerDTO.getNachname(), spielerDTO.getGeburtsdatum(),
     spielerDTO.getPosition(), spielerDTO.getRueckennummer());
+    spielerRepo.save(neuerSpieler);
     return neuerSpieler;
   }
   
