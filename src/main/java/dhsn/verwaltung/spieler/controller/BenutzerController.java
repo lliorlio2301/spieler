@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
+import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
+import dhsn.verwaltung.spieler.model.identity.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.BenutzerService;
 import jakarta.validation.Valid;
@@ -40,7 +42,8 @@ public class BenutzerController {
 
     @GetMapping("/neuerAdmin")
         public String getNeuenAdmin(Model model) {
-        model.addAttribute("admin", new Benutzer());
+        model.addAttribute("admin", new BenutzerDTO());
+        model.addAttribute("adminrole", Role.ROLE_ADMIN);
         return "benutzer/neuerAdmin";
     }
 
@@ -50,7 +53,7 @@ public class BenutzerController {
       // RequestBody schickt JSON oder andere
       // @Valid kennzeichnet das zu überprüfende Objekt
       // BindingResult prüft dieses Objekt
-      @ModelAttribute("admin") @Valid Benutzer benutzer, BindingResult bindingResult,
+      @ModelAttribute("admin") @Valid BenutzerDTO benutzerDTO, BindingResult bindingResult,
       Model model
     ) {
 
@@ -58,8 +61,8 @@ public class BenutzerController {
             return "benutzer/neuerAdmin"; //HTML nochmal schicken 
         }
 
-        benutzer.setRole(Role.ROLE_ADMIN);
-        var benutzerTest = benutzerService.register(benutzer);
+        benutzerDTO.setRole(Role.ROLE_ADMIN);
+        var benutzerTest = benutzerService.register(benutzerDTO);
         if (null == benutzerTest) {
           model.addAttribute("regError", "Fehler bei der Registrierung");
           return "redirect:/spielerverwaltung/admin/registrierung";
@@ -75,12 +78,13 @@ public class BenutzerController {
     }
 
     @PostMapping("/benutzer/{id}")
-    public String postEditBenutzer(
-        @ModelAttribute("benutzer") @Valid Benutzer benutzer, BindingResult bindingResult,
+    public String postEditBenutzer( Model model,
+        @ModelAttribute("benutzer") @Valid BenutzerIdDTO benutzer, BindingResult bindingResult,
         @PathVariable Long id
     ) { 
         if(bindingResult.hasErrors()){
             
+            model.addAttribute("roles", Role.values());
             return "benutzer/editBenutzer"; //HTML nochmal schicken 
         }
 
