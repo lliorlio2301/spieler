@@ -36,16 +36,7 @@
                         <label for="password">Password: </label>
                         <input type="text" th:field="*{passwort}" id="password">
                         <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
-                    </div>
-                    <div class="">
-                        <label for="roles">Rolle wählen:</label>
-                        <select th:field="*{roles}" id="roles">
-                            <option th:each="role : ${roles}"
-                                    th:value="${role}"
-                                    th:text="${role.name}">Rollen</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('role')}" class="errorText" th:errors="*{role}">FEHLER</p>
-                    </div>
+                        
                         <h3>Spielerdaten: </h3>
                     <div>
                         <label for="vorname">Vorname: </label>
