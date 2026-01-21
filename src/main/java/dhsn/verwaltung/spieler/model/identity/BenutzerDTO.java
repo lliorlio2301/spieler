@@ -22,4 +22,30 @@ public class BenutzerDTO {
     @NotNull(message = "Eine Rolle muss eingetragen werden")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswort() {
+        return passwort;
+    }
+
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    
 }
