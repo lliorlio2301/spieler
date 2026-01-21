@@ -60,6 +60,13 @@ public class AppConf {
                             Position.MITTELFELD, 6)
             );
         spielerRepository.saveAll(testSpieler);
+
+        List<Benutzer> testAdmin = List.of(
+            new Benutzer("admin1", passwordEncoder.encode("admin1"), Role.ROLE_ADMIN),
+            new Benutzer("admin2", passwordEncoder.encode("admin2"), Role.ROLE_ADMIN),
+            new Benutzer("admin3", passwordEncoder.encode("admin1"), Role.ROLE_ADMIN)
+        );
+        benutzerRepository.saveAll(testAdmin);
      };
     }
     
