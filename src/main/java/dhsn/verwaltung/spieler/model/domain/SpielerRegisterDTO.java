@@ -45,7 +45,6 @@ public class SpielerRegisterDTO {
     @NotNull(message = "Dieses Feld darf nicht leer sein")
     private int rueckennummer;
 
-    @NotNull(message = "Eine Rolle muss eingetragen werden")
     @Enumerated(EnumType.STRING)
     private Role role;
     
