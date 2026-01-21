@@ -3,18 +3,12 @@ package dhsn.verwaltung.spieler.model.domain;
 import java.time.LocalDate;
 import java.time.Period;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.Role;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+
 
 @Entity
 @Table(name = "spieler")
@@ -22,25 +16,16 @@ import jakarta.validation.constraints.Past;
 @PrimaryKeyJoinColumn(name = "benutzer_id") 
 public class Spieler extends Benutzer{
 
-    @Valid
-
-    @NotBlank(message = "Dieses Feld darf nicht leer sein")
     private String vorname;
-
-    @NotBlank(message = "Dieses Feld darf nicht leer sein")
+    
     private String nachname;
     // Für HTML-input Feld
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Dieses Feld darf nicht leer sein")
-    @Past(message = "Das Geburtsdatum muss in  der Vergangeheit liegen") 
+
     private LocalDate geburtsdatum;
 
-    @NotNull(message = "Dieses Feld darf nicht leer sein")
+
     private Position position;
-    
-    @Column(unique = true)
-    @NotNull(message = "Dieses Feld darf nicht leer sein")
+
     private int rueckennummer;
     
     public Spieler(){}
@@ -57,6 +42,11 @@ public class Spieler extends Benutzer{
         this.position = position;
         this.rueckennummer = rueckennummer;
     }
+
+    public Spieler(String username, String passwort, Role role) {        
+        super(username, passwort, role);
+    }
+
 
     public String getVorname() {
         return vorname;
