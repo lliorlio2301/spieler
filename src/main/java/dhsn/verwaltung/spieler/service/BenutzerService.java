@@ -8,28 +8,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import dhsn.verwaltung.spieler.model.domain.Spieler;
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
-
+import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
+import dhsn.verwaltung.spieler.model.identity.BenutzerIdDTO;
+import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.repository.BenutzerRepository;
+import dhsn.verwaltung.spieler.repository.SpielerRepository;
 import jakarta.transaction.Transactional;
 
 @Service
 public class BenutzerService {
 
   private BenutzerRepository benutzerRepository;
+  private SpielerRepository spielerRepository;
   private PasswordEncoder passwordEncoder;
 
   //Verantwortlich das eingegebene Passwort zu encrypten
   private BCryptPasswordEncoder bEncoder = new BCryptPasswordEncoder(4);
 
-  public BenutzerService (BenutzerRepository benutzerRepository, PasswordEncoder pe) {
+  public BenutzerService (BenutzerRepository benutzerRepository, PasswordEncoder pe, SpielerRepository sp) {
     this.benutzerRepository = benutzerRepository;
     this.passwordEncoder = pe;
+    this.spielerRepository = sp;
   }
 
   @Transactional
-  public Benutzer register(Benutzer benutzer) {
-    benutzer.setPasswort(bEncoder.encode(benutzer.getPasswort()));
+  public Benutzer register(BenutzerDTO benutzerDTO) {
+    Benutzer benutzer = new Benutzer(
+      benutzerDTO.getUsername(),
+      bEncoder.encode(benutzerDTO.getPasswort()),
+      benutzerDTO.getRole());
     // Gibt Objekt zurück, da erst bei save() die Id in der DB erstellt wird
     // Jetzt als Prüfer für Methode im Controller
     return benutzerRepository.save(benutzer);  
@@ -39,13 +48,15 @@ public class BenutzerService {
     return benutzerRepository.findAll();
   }
 
-  public Benutzer getBenutzerById(Long id) {
-    return benutzerRepository.findById(id).orElseThrow(()-> 
+  public BenutzerIdDTO getBenutzerById(Long id) { 
+    Benutzer benutzer = benutzerRepository.findById(id).orElseThrow(()-> 
       new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
+    BenutzerIdDTO bDTO = new BenutzerIdDTO(benutzer.getId(), benutzer.getUsername(), benutzer.getPasswort(), benutzer.getRole()); 
+      return bDTO;
   }
 
   @Transactional
-  public void speicherEditBenutzer(Benutzer formularBenutzer, Long id) {
+  public void speicherEditBenutzer(BenutzerIdDTO formularBenutzer, Long id) {
 
     Benutzer datenBankBenutzer = benutzerRepository.findById(id).
     orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
@@ -62,6 +73,17 @@ public class BenutzerService {
     }
 
     benutzerRepository.save(datenBankBenutzer);
+
+    if (spielerRepository.existsById(id)) { //Benutzer darf nicht Spieler und Admin gleichzeitig sein
+        spielerRepository.deleteNurBeiSpieler(id);
+        return;
+    }
+
+    if (datenBankBenutzer.getRole().equals(Role.ROLE_SPIELER) 
+      && !spielerRepository.existsById(id)) //Sicherstellung dieser Benutzer schon in spieler Tabelle nicht war  
+    {
+      spielerRepository.adminZuSpieler(id);
+    }
   }
 
   @Transactional
