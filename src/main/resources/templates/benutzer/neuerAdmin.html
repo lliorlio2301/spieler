@@ -35,7 +35,16 @@
                         <label for="password">Passwort: </label>
                         <input type="text" th:field="*{passwort}" id="password">
                         <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
-                    </div>            
+                    </div>    
+                    <div>
+                        <label for="role">Role: </label>
+                        <select name="role" id="role" th:field="*{role}">
+                            <option th:value="${adminrole}"
+                            th:text="${adminrole.name}">Admin_Role</option>
+                        </select>
+                        </option>
+                        <p th:if="${#fields.hasErrors('role')}" class="errorText" th:errors="*{role}">FEHLER</p>    
+                    </div>          
                     <button type="submit">Registrieren</button>            
                 </form>
             </div>
