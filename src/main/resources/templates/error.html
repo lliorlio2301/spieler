@@ -17,13 +17,13 @@
     </div>
 
     <div class="Titelseite">
-        <h2>FEHLER</h2>
+        <h2 class="errorText">FEHLER</h2>
     </div>
     <div class="inhalt">
         <h3 th:text="${status} + ' ' + ${error}">Etwas ging schief</h3>
 
         <p th:text="${message}">Es tut uns leid</p>
-        <a href="@{/spielerverwaltung/startseite}">Zurück zur Startseite</a>
+        <a th:href="@{/spielerverwaltung/startseite}">Zurück zur Startseite</a>
     </div>
 </body>
 </html>

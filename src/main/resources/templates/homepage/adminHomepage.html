@@ -46,6 +46,7 @@
                             <th>Position</th>
                             <th>Rückennummer</th>
                             <th>Aktionen</th>
+                            <th>Gehaltserhöhung</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,18 +60,17 @@
                             <td th:text="${spieler.position.bezeichnung}">Torwart</td>
                             <td th:text="${spieler.rueckennummer}">1</td>
                             <td>
-                                <!-- 
-                                {id} Platzhalter 
-                                    Zuweisung des Platzhalters (id=${spieler.id}) 
-                                -->
+                                <!--{id} Platzhalter Zuweisung des Platzhalters (id=${spieler.id}) -->
                                 <a class="leisteButton" 
                                 th:href="@{/spielerverwaltung/admin/spieler/{id}(id=${spieler.id})}"
                                 >Edit</a>
                             </td>
+                            <td th:text="${spieler.isWillGehaltsErhoeung ? 'JA' : 'Nein'}">1</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <p>* Bedeutet, ob der Spieler sich wünscht, mehr zu verdienen</p>
         </div>
     </div>
 </body>
