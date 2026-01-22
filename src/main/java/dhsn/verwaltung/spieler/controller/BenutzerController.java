@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dhsn.verwaltung.spieler.model.identity.Benutzer;
-import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
-import dhsn.verwaltung.spieler.model.identity.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
+import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerDTO;
+import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.service.BenutzerService;
 import jakarta.validation.Valid;
 
@@ -72,7 +71,7 @@ public class BenutzerController {
 
     @GetMapping("/benutzer/{id}")
     public String getEditBenutzer(Model model, @PathVariable Long id) {
-        model.addAttribute("benutzer", benutzerService.getBenutzerById(id));
+        model.addAttribute("benutzer", benutzerService.getBenutzerIdDTOById(id));
         model.addAttribute("roles", Role.values());
         return "benutzer/editBenutzer";
     }
