@@ -7,8 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dhsn.verwaltung.spieler.model.domain.Position;
-import dhsn.verwaltung.spieler.model.domain.SpielerBasicDTO;
-import dhsn.verwaltung.spieler.model.domain.SpielerRegisterDTO;
+import dhsn.verwaltung.spieler.model.domain.DTO.SpielerRegisterDTO;
+import dhsn.verwaltung.spieler.model.domain.DTO.SpielerUpdateDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.SpielerService;
 import jakarta.validation.Valid;
@@ -76,7 +76,7 @@ public class SpielerController {
   @PostMapping("/spieler/{id}")
   public String editSpieler(
       Model model, 
-      @ModelAttribute("spielerDTO") @Valid SpielerBasicDTO spielerDTO, BindingResult br ,
+      @ModelAttribute("spielerDTO") @Valid SpielerUpdateDTO spielerDTO, BindingResult br ,
       @PathVariable("id") Long id
     ) {
     

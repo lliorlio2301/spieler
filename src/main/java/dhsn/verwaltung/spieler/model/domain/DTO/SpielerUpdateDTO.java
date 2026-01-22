@@ -1,10 +1,12 @@
-package dhsn.verwaltung.spieler.model.domain;
+package dhsn.verwaltung.spieler.model.domain.DTO;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import dhsn.verwaltung.spieler.model.domain.Position;
+import dhsn.verwaltung.spieler.model.domain.Spieler;
 import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-public class SpielerBasicDTO {
+public class SpielerUpdateDTO {
     
     @Valid
 
@@ -39,10 +41,20 @@ public class SpielerBasicDTO {
     @Column(unique = true)
     @NotNull(message = "Dieses Feld darf nicht leer sein")
     private int rueckennummer;
-    
-    public SpielerBasicDTO(){}
 
-    public SpielerBasicDTO(Spieler s) {
+    private boolean willGehaltsErhoeung;
+    
+    public boolean isWillGehaltsErhoeung() {
+        return willGehaltsErhoeung;
+    }
+
+    public void setWillGehaltsErhoeung(boolean willGehaltsErhoeung) {
+        this.willGehaltsErhoeung = willGehaltsErhoeung;
+    }
+
+    public SpielerUpdateDTO(){}
+
+    public SpielerUpdateDTO(Spieler s) {
         this.id = s.getId();
         this.vorname = s.getVorname();
         this.nachname = s.getNachname();
@@ -50,8 +62,6 @@ public class SpielerBasicDTO {
         this.position = s.getPosition();
         this.rueckennummer = s.getRueckennummer();
     }
-
-    
 
     public int getAlter() {
         return Period.between(geburtsdatum, LocalDate.now()).getYears(); 
@@ -97,13 +107,9 @@ public class SpielerBasicDTO {
         this.vorname = vorname;
     }
 
-
-
     public String getPasswort() {
         return passwort;
     }
-
-
 
     public void setPasswort(String passwort) {
         this.passwort = passwort;
