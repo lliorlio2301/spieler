@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 //Für die Auth Prozess
 public class BenutzerAuthDetails implements UserDetails {
     
+    private Long id;
     private String username;
     private String password;
     private Role role;
@@ -19,9 +20,15 @@ public class BenutzerAuthDetails implements UserDetails {
 
     //Notwendig, um bei Service den Objekt zurückzusenden
     public BenutzerAuthDetails(Benutzer benutzer) {
+        this.id = benutzer.getId();
         this.username = benutzer.getUsername();
         this.password = benutzer.getPasswort();
         this.role = benutzer.getRole();
+    }
+
+    //
+    public Long getId() {
+        return id;
     }
 
     //Override Methoden notwendig. SprSec verifiziert diese zwanghaft bei jedem User

@@ -11,11 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 @Entity
 @Table(name = "benutzer")
 //Spieler hat eine eigene Tabelle, aber taucht hier auch auf 
@@ -32,7 +27,7 @@ public class Benutzer {
 
     private String passwort;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //Sonst wird in der DB mit Index dargestellt
     private Role role;
 
     public Benutzer(){}
