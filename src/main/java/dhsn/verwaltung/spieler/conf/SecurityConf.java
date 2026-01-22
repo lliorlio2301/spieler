@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 @EnableWebSecurity // so that Spring beginns with this Security Configuration
@@ -22,14 +23,21 @@ public class SecurityConf {
     httpSecurity.authorizeHttpRequests(request -> request
       // css and images folder are allowed, otherwise the loginpage would see without desing
       .requestMatchers("/anmelden", "/spielerverwaltung/startseite" ,"/images/**", "/css/**").permitAll()
-      
       //Fehlerursache sehen
       .requestMatchers("/error").permitAll()
       .requestMatchers("/spielerverwaltung/super/**").hasRole("SUPER")
       .requestMatchers("/spielerverwaltung/admin/**").hasAnyRole("ADMIN", "SUPER") //Für Seiten mit AdminRechten
+      /* 
+      SpEL Spring MiniSprache - 
+      Principal wird die UserDetailsObjekt genannt 
+      toString, weil im URL die Zahl als String gesehen wird
+      # ist Indikator für Spring, um eine Variable in der URL zu suchen 
+      */
+      /* .requestMatchers("/spielerverwaltung/spieler/{id}/**", "/spielerverwaltung/spieler/erhoeung/{id}")
+        .access(new WebExpressionAuthorizationManager("authentication.principal.id.toString() == #id")) */
       .anyRequest().authenticated()); // It checks the auth any other request
     
-      //Das übernimmt all den Auth.Prozess. Man braucht es nicht, im LoginController umzusetzen
+    //Das übernimmt all den Auth.Prozess. Man braucht es nicht, im LoginController umzusetzen
     httpSecurity.formLogin(customizer -> customizer
       .loginPage("/anmelden")
       .permitAll()
