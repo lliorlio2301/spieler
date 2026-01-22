@@ -5,6 +5,8 @@ import java.time.Period;
 
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.Role;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -17,20 +19,21 @@ import jakarta.persistence.Table;
 public class Spieler extends Benutzer{
 
     private String vorname;
-    
+
     private String nachname;
     // Für HTML-input Feld
 
     private LocalDate geburtsdatum;
-
-
+    
     private Position position;
 
+    @Column(unique = true)
     private int rueckennummer;
+
+    @Nullable
+    private boolean willGehaltsErhoeung;
     
     public Spieler(){}
-
-    
 
     public Spieler(String username, String password, Role role,
         String vorname, String nachname, LocalDate geburtsdatum, 
@@ -46,7 +49,6 @@ public class Spieler extends Benutzer{
     public Spieler(String username, String passwort, Role role) {        
         super(username, passwort, role);
     }
-
 
     public String getVorname() {
         return vorname;
@@ -90,5 +92,15 @@ public class Spieler extends Benutzer{
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+
+
+    public boolean isWillGehaltsErhoeung() {
+        return willGehaltsErhoeung;
+    }
+
+    public void setWillGehaltsErhoeung(boolean kannspielen) {
+        this.willGehaltsErhoeung = kannspielen;
     }
 }
