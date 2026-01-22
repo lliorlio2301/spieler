@@ -1,10 +1,11 @@
-package dhsn.verwaltung.spieler.model.domain;
+package dhsn.verwaltung.spieler.model.domain.DTO;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import dhsn.verwaltung.spieler.model.domain.Position;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;

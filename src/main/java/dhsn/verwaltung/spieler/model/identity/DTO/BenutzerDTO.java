@@ -1,5 +1,6 @@
-package dhsn.verwaltung.spieler.model.identity;
+package dhsn.verwaltung.spieler.model.identity.DTO;
 
+import dhsn.verwaltung.spieler.model.identity.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.Valid;
@@ -7,12 +8,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class BenutzerIdDTO {
-
-     //Werkzeuge zur Festlegung, was in den Felder eingetragen werden können 
+public class BenutzerDTO {
+    
+    //Werkzeuge zur Festlegung, was in den Felder eingetragen werden können 
     @Valid
-
-    private Long id;
 
     @NotBlank(message = "Username muss eingetragen werden")
     private String username;
@@ -24,15 +23,6 @@ public class BenutzerIdDTO {
     @NotNull(message = "Eine Rolle muss eingetragen werden")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public BenutzerIdDTO(){}
-
-    public BenutzerIdDTO(Long id, String username,String passwort,Role role) {
-        this.id = id;
-        this.username = username;
-        this.passwort = passwort;
-        this.role = role;
-    }
 
     public String getUsername() {
         return username;
@@ -58,12 +48,5 @@ public class BenutzerIdDTO {
         this.role = role;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
 }
