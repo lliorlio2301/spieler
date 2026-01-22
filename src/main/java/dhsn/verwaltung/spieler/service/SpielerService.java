@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import dhsn.verwaltung.spieler.model.domain.Spieler;
-import dhsn.verwaltung.spieler.model.domain.SpielerBasicDTO;
-import dhsn.verwaltung.spieler.model.domain.SpielerRegisterDTO;
+import dhsn.verwaltung.spieler.model.domain.DTO.SpielerRegisterDTO;
+import dhsn.verwaltung.spieler.model.domain.DTO.SpielerUpdateDTO;
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.repository.SpielerRepository;
 import jakarta.transaction.Transactional;
@@ -28,21 +28,22 @@ public class SpielerService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public SpielerBasicDTO getBasicSpielerDTO(Long id) {
+  public SpielerUpdateDTO getBasicSpielerDTO(Long id) {
     Spieler spieler = spielerRepo.findById(id).orElseThrow(()->new UsernameNotFoundException("ID ist unbekannt: " +id));
-    SpielerBasicDTO sbdto = new SpielerBasicDTO();
-    sbdto.setId(spieler.getId());
-    sbdto.setVorname(spieler.getVorname());
-    sbdto.setGeburtsdatum(spieler.getGeburtsdatum());
-    sbdto.setNachname(spieler.getNachname());
-    sbdto.setPosition(spieler.getPosition());
-    sbdto.setRueckennummer(spieler.getRueckennummer());
-    return sbdto;
+    SpielerUpdateDTO spielerDTO = new SpielerUpdateDTO();
+    spielerDTO.setId(spieler.getId());
+    spielerDTO.setVorname(spieler.getVorname());
+    spielerDTO.setGeburtsdatum(spieler.getGeburtsdatum());
+    spielerDTO.setNachname(spieler.getNachname());
+    spielerDTO.setPosition(spieler.getPosition());
+    spielerDTO.setRueckennummer(spieler.getRueckennummer());
+    spielerDTO.setWillGehaltsErhoeung(spieler.isWillGehaltsErhoeung());
+    return spielerDTO;
   }
 
-  public List<SpielerBasicDTO> getAlleSpielerBasic() {
+  public List<SpielerUpdateDTO> getAlleSpielerBasic() {
     return spielerRepo.findAll().stream().
-    map(SpielerBasicDTO::new)
+    map(SpielerUpdateDTO::new)
     .collect(Collectors.toList());
   }
 
@@ -62,7 +63,7 @@ public class SpielerService {
 
 //Gewährleistung der Datenintegrität. Alles wird ausgeführt oder nichts
   @Transactional
-  public void speichernEditSpieler(SpielerBasicDTO spielerBDTO, Long id) {
+  public void speichernEditSpieler(SpielerUpdateDTO spielerBDTO, Long id) {
     
     Spieler datenBankSpieler = spielerRepo.findById(id).orElseThrow(() -> 
     new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
@@ -90,5 +91,13 @@ public class SpielerService {
     spielerRepo.findById(id).orElseThrow(() -> 
     new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
     spielerRepo.deleteById(id);
+  }
+
+  public void setGehaltErhoung(Long id, boolean willErhoung) {
+    Spieler spieler = spielerRepo.findById(id).orElseThrow(()->
+      new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt")
+    );
+    spieler.setWillGehaltsErhoeung(willErhoung);
+    spielerRepo.save(spieler);
   }
 }
