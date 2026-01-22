@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <title>Registrierung</title>
+    <title>Edit</title>
 </head>
 <body>
     <div class="leiste_oben">
@@ -33,7 +33,7 @@
                     <div>
                         <h3>Password Ändern</h3>
                         <div>
-                            <label for="passwort">Passwort: </label>
+                            <label for="text">Passwort: </label>
                             <input type="text" th:field="*{passwort}" id="passwort">    
                         <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
                     </div>
