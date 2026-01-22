@@ -8,11 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import dhsn.verwaltung.spieler.model.domain.Spieler;
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
-import dhsn.verwaltung.spieler.model.identity.BenutzerDTO;
-import dhsn.verwaltung.spieler.model.identity.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
+import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerDTO;
+import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.repository.BenutzerRepository;
 import dhsn.verwaltung.spieler.repository.SpielerRepository;
 import jakarta.transaction.Transactional;
@@ -48,7 +47,7 @@ public class BenutzerService {
     return benutzerRepository.findAll();
   }
 
-  public BenutzerIdDTO getBenutzerById(Long id) { 
+  public BenutzerIdDTO getBenutzerIdDTOById(Long id) { 
     Benutzer benutzer = benutzerRepository.findById(id).orElseThrow(()-> 
       new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"));
     BenutzerIdDTO bDTO = new BenutzerIdDTO(benutzer.getId(), benutzer.getUsername(), benutzer.getPasswort(), benutzer.getRole()); 
@@ -82,7 +81,13 @@ public class BenutzerService {
     if (datenBankBenutzer.getRole().equals(Role.ROLE_SPIELER) 
       && !spielerRepository.existsById(id)) //Sicherstellung dieser Benutzer schon in spieler Tabelle nicht war  
     {
-      spielerRepository.adminZuSpieler(id);
+      List<Integer> benutzteRuecknummer = spielerRepository.getRueckNummer();
+      int rueckennummer = 0;
+      while (benutzteRuecknummer.contains(rueckennummer)) {
+        rueckennummer++;
+      }
+
+      spielerRepository.adminZuSpieler(id, rueckennummer);
     }
   }
 
