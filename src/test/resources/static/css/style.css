@@ -1,0 +1,121 @@
+img {
+  width: 100px;
+  height: auto;
+}
+
+label {
+  font-weight: bold;
+}
+
+.tabelleContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
+
+.tabelleStartseite {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
+  max-width: 800px;
+}
+
+/* Abstand zwischen Zellen */
+.tabelleStartseite th,
+.tabelleStartseite td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+} 
+
+.tabelleAdmin {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
+  max-width: 1050px;
+}
+
+.tabelleAdmin th,
+.tabelleAdmin td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.spalteKlein{
+  width: 7%;
+}
+
+.link {
+  width: auto;
+}
+
+.listeSpieler {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.zentrierung {
+  display: flex;             
+  justify-content: center; /*horizontal */
+  align-items: center; /*vertikal*/
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5px;
+}
+
+.leiste_oben {
+  display: flex;
+  flex-direction: row; /*Horizontal Ausrichtung */
+  gap: 25px;
+}
+
+.horizontal {
+  display: flex;
+  flex-direction: row; /*Horizontal Ausrichtung */
+  gap: 25px;
+}
+
+.formular {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.formular div {
+  padding: 10px;
+}
+
+.loeschenButton {
+  margin-left: 10px;
+}
+
+.nachricht {
+  font-size: xx-large;
+}
+/* Mit ButtonGenerator erstellt*/
+.leisteButton { 
+
+    text-decoration: none; /* kein Unterstrich */
+    color: initial;
+    padding: 2px 6px; /* Standard-Button-Abstand */
+    border: 1px solid #767676; /* Standard-Rand */
+    background-color: #efefef; /* Standard-Grau */
+
+    display: inline-block; /* Button Verhalten beim Klicken */
+    text-align: center;
+    font-size: 13.33px; /* Standard-Schriftgröße von Browsern */
+    font-family: Arial, sans-serif;
+    cursor: default; /* 'default' für Pfeil, kein Zeiger mit dem Finger*/
+    
+}
+
+.errorText {
+  color: red;
+}
+
+

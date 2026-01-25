@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>FEHLER</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/startseite}" class="leisteButton">Startseite</a> 
+        </div>
+    </div>
+
+    <div class="Titelseite">
+        <h2 class="errorText">FEHLER</h2>
+    </div>
+    <div class="inhalt">
+        <h3 th:text="${status} + ' ' + ${error}">Etwas ging schief</h3>
+
+        <p th:text="${message}">Es tut uns leid</p>
+        <a th:href="@{/spielerverwaltung/startseite}">Zurück zur Startseite</a>
+    </div>
+</body>
+</html>

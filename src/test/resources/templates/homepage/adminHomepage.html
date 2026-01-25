@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <title>Registrierung</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+
+        <div class="vertical">
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>      
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="Titelseite">
+        <h2>Neue Benutzer</h2>
+    </div>
+    <div class="">
+        <div class="vertical">
+            <div class="">
+                <a class="link" th:href="@{/spielerverwaltung/super/neuerAdmin}">Neuer Admin</a>
+                <a class="link" th:href="@{/spielerverwaltung/admin/registrierung/neuerSpieler}">Neuer Spieler</a>
+            </div>
+            <div class="tabelleContainer">
+                <h3>Mannschaftsübersicht</h3>
+                <table class="tabelleAdmin">
+                    <thead>
+                        <tr>
+                            <th class="spalteKlein">ID</th>
+                            <th>Username</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                            <th>Geburtsdatum</th>
+                            <th>Position</th>
+                            <th>Rückennummer</th>
+                            <th>Aktionen</th>
+                            <th>Gehaltserhöhung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="spieler : ${listeSpieler}">
+                            <td th:text="${spieler.id}">1</td>
+                            <td th:text="${spieler.username}">user</td>                               
+                            <td th:text="${spieler.vorname}">Max</td>
+                            <td th:text="${spieler.nachname}">Mustermann</td>
+                            <!-- #temporals um die Ausgabe des Datums zu steuern -->
+                            <td th:text="${#temporals.format(spieler.geburtsdatum, 'dd-MM-yyyy')}">23.01.2004</td>
+                            <td th:text="${spieler.position.bezeichnung}">Torwart</td>
+                            <td th:text="${spieler.rueckennummer}">1</td>
+                            <td>
+                                <!--{id} Platzhalter Zuweisung des Platzhalters (id=${spieler.id}) -->
+                                <a class="leisteButton" 
+                                th:href="@{/spielerverwaltung/admin/spieler/{id}(id=${spieler.id})}"
+                                >Edit</a>
+                            </td>
+                            <td th:text="${spieler.isWillGehaltsErhoeung ? 'JA' : 'Nein'}">1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>* Bedeutet, ob der Spieler sich wünscht, mehr zu verdienen</p>
+        </div>
+    </div>
+</body>
+</html>

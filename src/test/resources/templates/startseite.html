@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Homepage</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div> <!-- leisteButton mit div sonst nimmr leiste_oben es durcheinander-->
+            <a th:href="@{/anmelden}" class="leisteButton">Anmelden</a> 
+        </div>
+    </div>
+    <div class="Titelseite">
+        <h2>Startseite</h2>
+    </div>
+    <div class="">
+        <div class="inhalt">
+            <div class="tabelleContainer">
+                    <h3>Mannschaftsübersicht</h3>
+                    <table class="tabelleStartseite">
+                        <thead>
+                            <tr>
+                                <th>Vorname</th>
+                                <th>Nachname</th>
+                                <th class="spalteKlein">Alter</th>
+                                <th>Position</th>
+                                <th>Rückennummer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="spieler : ${spielerDTOListe}">
+                                <td th:text="${spieler.vorname}">Max</td>
+                                <td th:text="${spieler.nachname}">Mustermann</td>
+                                <td th:text="${spieler.getAlter()}">25</td>
+                                <td th:text="${spieler.position.bezeichnung}">Torwart</td>
+                                <td th:text="${spieler.rueckennummer}">1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

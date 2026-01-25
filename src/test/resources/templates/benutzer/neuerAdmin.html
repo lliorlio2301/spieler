@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Registrierung</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a> 
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form> 
+        </div>
+    </div>
+    <div class="Titelseite">
+        <h2>Neuer Admin Registrieren</h2>
+    </div>
+
+    <div class="zentrierung"></div>
+        <div class="inhalt">
+            <div class="formular">
+                <form th:action="@{/spielerverwaltung/super/neuerAdmin}" method="post" th:object="${admin}">
+                    <div>
+                        <label for="username">Username: </label>
+                        <input type="text" th:field="*{username}" id="username">
+                        <p th:if="${#fields.hasErrors('username')}" class="errorText" th:errors="*{username}">FEHLER</p>    
+                    </div>
+                    <div>
+                        <label for="password">Passwort: </label>
+                        <input type="text" th:field="*{passwort}" id="password">
+                        <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
+                    </div>    
+                    <div>
+                        <label for="role">Role: </label>
+                        <select name="role" id="role" th:field="*{role}">
+                            <option th:value="${adminrole}"
+                            th:text="${adminrole.name}">Admin_Role</option>
+                        </select>
+                        </option>
+                        <p th:if="${#fields.hasErrors('role')}" class="errorText" th:errors="*{role}">FEHLER</p>    
+                    </div>          
+                    <button type="submit">Registrieren</button>            
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

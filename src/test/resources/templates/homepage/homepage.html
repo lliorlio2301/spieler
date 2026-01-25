@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Homepage</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/admin/registrierung}" class="leisteButton">Admin</a>
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="seite">
+        <h2>Homepage</h2>
+    </div>
+
+    <div class="">
+        <div class="inhalt">
+            <div th:if="${fussballID}">
+                <h3>Deine Daten Pflegen</h3>
+                <a th:href="@{'/spielerverwaltung/spieler/'+${fussballID}}">Mein Profil bearbeiten</a>
+            <p th:if="${willkommenadmin}" class="willkommen" th:text="${willkommenadmin}">Willkommen</p>
+            <p th:if="${willkommensuper}" class="willkommen" th:text="${willkommensuper}">Willkommen</p>
+        </div>
+    </div>
+</body>
+</html>

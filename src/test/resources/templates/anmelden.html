@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div>
+            <a type="button" th:href="@{/spielerverwaltung/startseite}" class="leisteButton">Startseite</a>
+        </div>
+    </div>
+
+    <div class="seite">
+        <h2>Anmeldung</h2>
+    </div>
+    <div class="">
+        <div class="inhalt">
+            <div class="formular">
+                <form th:action="@{/anmelden/login_auth}" method="post">
+                    <div>
+                        <label for="username">Username: </label>
+                        <!-- nameParameter erforderlich bei input, 
+                        sodass SpringSecurity das Feld findet und zuordnet-->
+                        <input type="text" name="username" id="username">    
+                    </div>
+                    <div>
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password">    
+                    </div>
+                    <button type="submit">Anmelden</button>            
+                </form>
+            </div>
+            <div class="nachricht">
+                <p th:if="${error}" class="errorText">Falscher Username oder Passwort</p>
+                <p th:if="${bye}">Aufwiedersehen!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

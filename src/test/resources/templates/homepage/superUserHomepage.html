@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>SuperUser</title>
+</head>
+<body>
+    <div class="leiste_oben">
+                <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+                <h1>Spielerverwaltung</h1>
+                <div class="vertical">
+                    <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>
+                    <form th:action="@{/abmelden}" method="post" class="button">
+                        <button type="submit">Abmelden</button>
+                    </form>
+                </div>
+            </div>
+    <div class="TitelSeite">
+    <h2>SuperUser</h2>
+    </div>
+    <div class=""> 
+        <div class="inhalt">
+            <div class="vertical">
+                <div class="tabelleContainer">
+                <h3>Liste Benutzer</h3>
+                    <table class="tabelleAdmin">
+                        <thead>
+                            <tr>
+                                <th class="spalteKlein">ID</th>
+                                <th>Username</th>
+                                <th>Rolle</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="benutzer : ${listeBenutzer}">
+                                <td th:text="${benutzer.id}">1</td>
+                                <td th:text="${benutzer.username}">user</td>                                         
+                                <td th:text="${benutzer.role.name}">Torwart</td>
+
+                                <td>
+                                    <!-- 
+                                    {id} Platzhalter 
+                                        Zuweisung des Platzhalters (id=${spieler.id}) 
+                                    -->
+                                    <a class="leisteButton" 
+                                    th:href="@{/spielerverwaltung/super/benutzer/{id}(id=${benutzer.id})}"
+                                    >Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
