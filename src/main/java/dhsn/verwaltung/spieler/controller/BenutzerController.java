@@ -1,5 +1,6 @@
 package dhsn.verwaltung.spieler.controller;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,7 @@ public class BenutzerController {
     @GetMapping("/benutzer/{id}")
     public String getEditBenutzer(Model model, @PathVariable Long id) {
         model.addAttribute("benutzer", benutzerService.getBenutzerIdDTOById(id));
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("roles", List.of(Role.ROLE_ADMIN, Role.ROLE_ADMIN));
         return "benutzer/editBenutzer";
     }
 
