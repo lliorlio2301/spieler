@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Registrierung</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a> 
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div> 
+    </div>
+    <div class="Titelseite">
+        <h2>Dein Profil Bearbeiten</h2>
+    </div>
+    <div class="">
+        <div class="vertical">
+             <div class="formular">
+                <form th:action="@{/spielerverwaltung/spieler/{id}(id=${spielerDTO.id})}" method="post" th:object="${spielerDTO}">
+                    <div>
+                        <h3>Password Ändern</h3>
+                        <div>
+                            <label for="passwort">Passwort: </label>
+                            <input type="text" th:field="*{passwort}" id="passwort">    
+                        <p th:if="${#fields.hasErrors('passwort')}" class="errorText" th:errors="*{passwort}">FEHLER</p>    
+                    </div>
+
+                    </div>
+                        <h3>Spielerdaten: </h3>
+                    <div>
+                        <label for="vorname">Vorname: </label>
+                        <input type="text" th:field="*{vorname}" id="vorname">    
+                        <p th:if="${#fields.hasErrors('vorname')}" class="errorText" th:errors="*{vorname}">FEHLER</p>    
+                    </div>
+                    <div>
+                        <label for="nachname">Nachname: </label>
+                        <input type="text" th:field="*{nachname}" id="nachname">
+                        <p th:if="${#fields.hasErrors('nachname')}" class="errorText" th:errors="*{nachname}">FEHLER</p>    
+                    </div>    
+                    <div>
+                        <label for="datum">Geburtsdatum: </label>
+                        <!-- th:value bei # temp.. 
+                         anstatt th:field weil t:f nur direkte Variablen von Objekt annimmt  -->
+                        <input 
+                        type="date" 
+                        th:field="*{geburtsdatum}"
+                        id="datum">
+                        <p th:if="${#fields.hasErrors('geburtsdatum')}" class="errorText" th:errors="*{geburtsdatum}">FEHLER</p>    
+                    </div>    
+                    <div>
+                        <label for="rueckennummer">Rückennummer: </label>
+                        <input type="number" th:field="*{rueckennummer}" id="rueckennummer">
+                        <p th:if="${#fields.hasErrors('rueckennummer')}" class="errorText" th:errors="*{rueckennummer}">FEHLER</p>    
+                    </div>            
+                    <div class="">
+                        <label for="positionen">Position wählen:</label>
+                        <select th:field="*{position}" id="positionen">
+                            <option th:each="p : ${positionen}"
+                                    th:value="${p}"
+                                    th:text="${p.bezeichnung}">Positionen</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('position')}" class="errorText" th:errors="*{position}">FEHLER</p>    
+                    </div>
+                    <div>
+                        <button type="submit">Bestätigen</button>        
+                    </div>
+                    <div>
+
+                    </div> 
+                </form>
+                <label for="">Wünscht du dir eine Gehaltserhöhung?</label>
+                <div class="horizontal">
+                    <form th:action="@{/spielerverwaltung/spieler/erhoeung/{id}(id=${spielerDTO.id})}" method="post">
+                        <button type="submit" name="mehrGehalt" value="true">JA</button>
+                        <button type="submit" name="mehrGehalt" value="false">Nein Danke</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
