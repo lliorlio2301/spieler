@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import dhsn.verwaltung.spieler.model.domain.Spieler;
 import dhsn.verwaltung.spieler.model.domain.Verein;
-
+import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.BenutzerAuthDetails;
 import dhsn.verwaltung.spieler.model.identity.Role;
 
@@ -20,6 +20,8 @@ import dhsn.verwaltung.spieler.service.BenutzerService;
 import dhsn.verwaltung.spieler.service.SpielerService;
 import dhsn.verwaltung.spieler.service.VereinService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -42,19 +44,22 @@ public class VereinController {
 
     @GetMapping
     public String getAdminVerein(Model model, @AuthenticationPrincipal BenutzerAuthDetails benutzerAuthDetails) {
-        Verein verein  = benutzerService.getAdminVerein(benutzerAuthDetails.getId()); 
-        if (verein==null) return "/spielerverwaltung/keinVerein";
+        Benutzer benutzer = benutzerService.getAdmin(benutzerAuthDetails.getId());
+        
+        Verein verein  = benutzerService.getAdminVerein(benutzer.getId());
+
+        if (verein==null && benutzer.getRole()!=Role.ROLE_SUPER) return "/verein/keinVerein";
+        if(benutzer.getRole()==Role.ROLE_SUPER) return "redirect:/spielerverwaltung/super";
         
         model.addAttribute("verein", verein);
         model.addAttribute("spielerListe", verein.getSpielerListe());
         return "verein/vereinDashboard";
-    }
+    }  
 
-    @PostMapping("/spielerDelete/{id}")
-    public String spielerDelete(@PathVariable("id") Long id, 
-        @AuthenticationPrincipal BenutzerAuthDetails benutzerAuthDetails) throws IllegalAccessException {
-        Verein verein  = benutzerService.getAdminVerein(benutzerAuthDetails.getId());
-        Spieler spieler = spielerService.getSpieler(id);
+    @PostMapping("/spielerDelete/{verein_id}/{spieler_id}")
+    public String spielerDelete(@PathVariable("spieler_id") Long spieler_id, @PathVariable("verein_id") Long verein_id) throws IllegalAccessException {
+        Verein verein  = vereinService.getVerein(verein_id);
+        Spieler spieler = spielerService.getSpieler(spieler_id);
 
         if (spieler.getVerein()==null||!spieler.getVerein().getId().equals(verein.getId())) {
             throw new IllegalAccessException("Dieser Spieler gehört nicht zu ihrem Verein");          
@@ -76,10 +81,11 @@ public class VereinController {
     }
 
     @PostMapping("/EditVerein/{id}") 
-    public String putEditVerein(@ModelAttribute("verein") Verein formVerein,
-                                @AuthenticationPrincipal BenutzerAuthDetails userDetails) {
+    public String putEditVerein(@ModelAttribute("verein") Verein formVerein, @PathVariable("id") Long id) {
 
-        Verein dbVerein = vereinService.getVerein(formVerein.getId());
+        System.out.println("FEHLER");
+
+        Verein dbVerein = vereinService.getVerein(id);
         
         if (dbVerein == null) return "redirect:/error";
 
