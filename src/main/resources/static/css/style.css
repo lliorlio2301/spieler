@@ -17,7 +17,7 @@ label {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 /* Abstand zwischen Zellen */
@@ -32,7 +32,7 @@ label {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
-  max-width: 1050px;
+  max-width: 1200px;
 }
 
 .tabelleAdmin th,
@@ -43,6 +43,20 @@ label {
 }
 .spalteKlein{
   width: 7%;
+}
+
+.tabelleSuperAdmin {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Größe Headers wird für alle Zellen festgelegt */
+  max-width: 500px;
+}
+
+.tabelleSuperAdmin th,
+.tabelleSuperAdmin td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
 }
 
 .link {
