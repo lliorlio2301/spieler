@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dhsn.verwaltung.spieler.model.domain.Position;
-import dhsn.verwaltung.spieler.model.domain.DTO.SpielerUpdateDTO;
+import dhsn.verwaltung.spieler.model.domain.SpielerDTO.SpielerUpdateDTO;
 import dhsn.verwaltung.spieler.model.identity.BenutzerAuthDetails;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerIdDTO;
@@ -49,7 +49,7 @@ public class SpielerVerwaltungController {
         
         if (bDTO.getRole() == Role.ROLE_SPIELER) model.addAttribute("fussballID", bad.getId());
         if (bDTO.getRole() == Role.ROLE_ADMIN) model.addAttribute("willkommenadmin", "Willkommen Admin");
-        if (bDTO.getRole() == Role.ROLE_SUPER) model.addAttribute("willkommensuper", "Willkommen Super");
+        if (bDTO.getRole() == Role.ROLE_SUPER) model.addAttribute("willkommensuper", "Willkommen SuperAdmin");
 
         return "homepage/homepage";
     } 
