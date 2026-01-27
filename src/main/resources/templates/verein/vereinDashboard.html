@@ -54,7 +54,7 @@
                             <td th:text="${spieler.rueckennummer}">1</td>
                             <td th:text="${spieler.isWillGehaltsErhoeung ? 'JA' : 'Nein'}">1</td>
                             <td>
-                                <form th:action="@{/spielerverwaltung/admin/verein/spielerDelete/{id}(id=${spieler.id})}" method="post"
+                                <form th:action="@{/spielerverwaltung/admin/verein/spielerDelete/{verein_id}/{spieler_id}(verein_id=${verein.id}, spieler_id=${spieler.id})}" method="post"
                                       onsubmit="return confirm('Spieler wirklich aus dem Verein entfernen?');">
                                     <button type="submit">Entfernen</button>
                                 </form>
