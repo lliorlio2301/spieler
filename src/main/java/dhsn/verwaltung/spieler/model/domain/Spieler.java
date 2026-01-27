@@ -8,6 +8,9 @@ import dhsn.verwaltung.spieler.model.identity.Role;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -21,13 +24,15 @@ public class Spieler extends Benutzer{
     private String vorname;
 
     private String nachname;
-    // Für HTML-input Feld
 
     private LocalDate geburtsdatum;
     
     private Position position;
 
-    @Column(unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "verein_id", referencedColumnName = "id")
+    private Verein verein;
+
     private int rueckennummer;
 
     @Nullable
@@ -37,13 +42,24 @@ public class Spieler extends Benutzer{
 
     public Spieler(String username, String password, Role role,
         String vorname, String nachname, LocalDate geburtsdatum, 
-        Position position, int rueckennummer) {
+        Position position, int rueckennummer, Verein verein) {
         super(username, password, role);
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtsdatum = geburtsdatum;
         this.position = position;
         this.rueckennummer = rueckennummer;
+        this.verein = verein;
+    }
+
+    public Spieler(String username, String password, Role role,
+        String vorname, String nachname, LocalDate geburtsdatum, 
+        Position position) {
+        super(username, password, role);
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.geburtsdatum = geburtsdatum;
+        this.position = position;
     }
 
     public Spieler(String username, String passwort, Role role) {        
@@ -94,13 +110,19 @@ public class Spieler extends Benutzer{
         this.position = position;
     }
 
-
-
     public boolean isWillGehaltsErhoeung() {
         return willGehaltsErhoeung;
     }
 
     public void setWillGehaltsErhoeung(boolean kannspielen) {
         this.willGehaltsErhoeung = kannspielen;
+    }
+
+    public Verein getVerein() {
+        return verein;
+    }
+
+    public void setVerein(Verein verein) {
+        this.verein = verein;
     }
 }
