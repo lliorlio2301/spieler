@@ -44,7 +44,6 @@ public class Benutzer {
         this.role = role;
     }
 
-    
     public Verein getVerwalteterVerein() {
         return verwalteterVerein;
     }
