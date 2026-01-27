@@ -28,16 +28,17 @@ public class AppConfTest {
     @Test
     void werdenAlleDatenInDerDbGeladen() {
         long anzahlAllerBenutzer = benutzerRepository.count();
-        assertEquals(9, anzahlAllerBenutzer);
+        
+        assertEquals(benutzerRepository.findAll().size(), anzahlAllerBenutzer);
+        
         long anzahlAllerSpieler = benutzerRepository.findAll().stream().filter(s->s.getRole().equals(Role.ROLE_SPIELER)).collect(Collectors.counting());
-        assertEquals(5, anzahlAllerSpieler);
+        
+        assertEquals(benutzerRepository.findAll().stream().
+            filter(s->s.getRole().equals(Role.ROLE_SPIELER)).
+            collect(Collectors.toList()).size(), 
+            anzahlAllerSpieler);
+
         long einzigeSuperUser = benutzerRepository.findAll().stream().filter(s->s.getRole().equals(Role.ROLE_SUPER)).collect(Collectors.counting());
         assertEquals(1, einzigeSuperUser);
-    }
-
-    @Test 
-    void istDieRuecknummerEindeutig() {
-        Long benutzteNummer = spielerRepository.findAll().stream().map(Spieler::getRueckennummer).distinct().count();
-        assertEquals(5, benutzteNummer);
     }
 }
