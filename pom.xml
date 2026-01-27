@@ -11,7 +11,7 @@
 	<groupId>dhsn.verwaltung</groupId>
 	<artifactId>spieler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>spieler</name>
 	<description>Spielerverwaltung Projekt</description>
 	<url/>
@@ -42,6 +42,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-tomcat</artifactId>
+    		<scope>provided</scope>
 		</dependency>
 		<dependency>
     		<groupId>com.h2database</groupId>
