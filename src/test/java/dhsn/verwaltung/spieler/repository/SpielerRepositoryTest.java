@@ -24,9 +24,9 @@ public class SpielerRepositoryTest {
 
     @Test
     public void testBenutzerAdmin(){
-        Benutzer benutzer = new Benutzer("testUser", "test12", Role.ROLE_ADMIN);
+        Benutzer benutzer = new Benutzer("testUser1", "test12", Role.ROLE_ADMIN);
         benutzerRepository.save(benutzer);
-        Long id = benutzerRepository.findByUsername("testUser").getId();
+        Long id = benutzerRepository.findByUsername("testUser1").getId();
         spielerRepository.adminZuSpieler(id, 0);
         Spieler neuerSpieler = spielerRepository.findById(id).orElse(null);
         assertEquals(id, neuerSpieler.getId());
@@ -34,10 +34,10 @@ public class SpielerRepositoryTest {
 
     @Test
     public void nurDeleteBeiSpieler(){
-        Spieler spieler = new Spieler("testUser", "test12", Role.ROLE_SPIELER);
+        Spieler spieler = new Spieler("testUser2", "test12", Role.ROLE_SPIELER);
         spielerRepository.save(spieler);
 
-        Long id = benutzerRepository.findByUsername("testUser").getId();
+        Long id = benutzerRepository.findByUsername("testUser2").getId();
 
         spielerRepository.deleteNurBeiSpieler(id);
 
