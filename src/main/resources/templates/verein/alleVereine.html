@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Vereine Dashboard</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+
+        <div class="vertical">
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>      
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="Titelseite">
+        <h2>Verein Dashboard</h2>
+    </div>
+
+    <div class="">
+        <div class="vertical">
+            <div class="tabelleContainer">
+                <h3>Vereineübersicht</h3>
+                
+                <table class="tabelleSuperAdmin">
+                    <thead>
+                        <tr>
+                            <th class="spalteKlein">ID</th>
+                            <th>Name</th>
+                            <th>Admin</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="verein : ${vereine}">
+                            <td th:text="${verein.id}">1</td>
+                            <td th:text="${verein.name}">Bayern</td>
+                            <td th:text="${verein.admin.username}">user</td>
+                            
+                            <td>
+                                <div class="vertical">
+                                    <a class="leisteButton"
+                                       th:href="@{/spielerverwaltung/super/verein/spieler/{id}(id=${verein.id})}">
+                                       Team
+                                    </a>
+
+                                    <a class="leisteButton"
+                                       th:href="@{/spielerverwaltung/admin/verein/EditVerein/mehrSpieler/{id}(id=${verein.id})}">
+                                        Spieler Hinzufügen
+                                    </a>
+
+                                    <form th:action="@{/spielerverwaltung/super/verein/vereinDelete/{id}(id=${verein.id})}" method="post"
+                                          onsubmit="return confirm('Verein wirklich aus dem System entfernen?');">
+                                        <button style="width: 100%;" 
+                                        type="submit">Löschen</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
