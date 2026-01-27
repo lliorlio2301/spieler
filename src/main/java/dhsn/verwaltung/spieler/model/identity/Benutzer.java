@@ -1,6 +1,7 @@
 package dhsn.verwaltung.spieler.model.identity;
 
 
+import dhsn.verwaltung.spieler.model.domain.Verein;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "benutzer")
@@ -30,12 +32,25 @@ public class Benutzer {
     @Enumerated(EnumType.STRING) //Sonst wird in der DB mit Index dargestellt
     private Role role;
 
+    // Bezieht sich auf Benutzer.verwalteterVerein (via mappedBy="admin" dort)
+    @OneToOne(optional = true, mappedBy = "admin")
+    private Verein verwalteterVerein; 
+
     public Benutzer(){}
 
     public Benutzer(String username, String passwort, Role role) {
         this.username = username;
         this.passwort = passwort;
         this.role = role;
+    }
+
+    
+    public Verein getVerwalteterVerein() {
+        return verwalteterVerein;
+    }
+
+    public void setVerwalteterVerein(Verein verein) {
+        this.verwalteterVerein = verein;
     }
 
     public Long getId(){
@@ -64,5 +79,6 @@ public class Benutzer {
     public void setRole(Role role) {
         this.role = role;
     }
+
 
 }
