@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <html xmlns:th="http://www.thymeleaf.org">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Homepage</title>
 </head>
@@ -21,7 +19,7 @@
     <div class="">
         <div class="inhalt">
             <div class="tabelleContainer">
-                    <h3>Mannschaftsübersicht</h3>
+                    <h3>Spielerübersicht</h3>
                     <table class="tabelleStartseite">
                         <thead>
                             <tr>
@@ -30,6 +28,7 @@
                                 <th class="spalteKlein">Alter</th>
                                 <th>Position</th>
                                 <th>Rückennummer</th>
+                                <th>Verein</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,6 +38,7 @@
                                 <td th:text="${spieler.getAlter()}">25</td>
                                 <td th:text="${spieler.position.bezeichnung}">Torwart</td>
                                 <td th:text="${spieler.rueckennummer}">1</td>
+                                <td th:text="${spieler.verein != null ? spieler.verein.name : 'Frei'}">Frei</td>
                             </tr>
                         </tbody>
                     </table>
