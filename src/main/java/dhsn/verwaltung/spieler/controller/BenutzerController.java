@@ -84,7 +84,7 @@ public class BenutzerController {
     @GetMapping("/benutzer/{id}")
     public String getEditBenutzer(Model model, @PathVariable Long id) {
         model.addAttribute("benutzer", benutzerService.getBenutzerIdDTOById(id));
-        model.addAttribute("roles", List.of(Role.ROLE_ADMIN, Role.ROLE_ADMIN));
+        model.addAttribute("roles", List.of(Role.ROLE_ADMIN, Role.ROLE_SPIELER));
         return "benutzer/editBenutzer";
     }
 
@@ -138,7 +138,7 @@ public class BenutzerController {
     @GetMapping("verein/spieler/{id}")
     public String getMethodName(Model model, @PathVariable("id") Long id) {
         Verein verein = vereinService.getVerein(id);
-        model.addAttribute("verein", vereinService.getVerein(id));
+        model.addAttribute("verein", verein);
         model.addAttribute("spielerListe", verein.getSpielerListe());
         return "verein/vereinDashboard";
     }
