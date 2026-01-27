@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Verein Bearbeiten</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+        <div class="vertical">
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a> 
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form> 
+        </div>
+    </div>
+    
+    <div class="Titelseite">
+        <h2>Namen vom Verein ändern</h2>
+    </div>
+
+    <div >
+        <div class="inhalt">
+            <div class="formular">
+                <form th:action="@{/spielerverwaltung/admin/verein/EditVerein/{id}(id=${verein.id})}" method="post" th:object="${verein}">
+                    <div>
+                        <label for="name">Name: </label>
+                        <input type="text" th:field="*{name}" id="name" required>
+                        <p th:if="${#fields.hasErrors('name')}" class="errorText" th:errors="*{name}">FEHLER</p>    
+                    </div>  
+                    
+                    <div class="horizontal">
+                        <button type="submit">Speichern</button> 
+                        <a th:href="@{/spielerverwaltung/admin/verein}" class="leisteButton">Abbrechen</a>
+                    </div>           
+                </form>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
