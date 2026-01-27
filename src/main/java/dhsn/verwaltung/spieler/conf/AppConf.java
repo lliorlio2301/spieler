@@ -52,7 +52,7 @@ public class AppConf {
 
             Verein bayern = new Verein(testAdmin.get(0),"Bayern München");
             Verein dortmund = new Verein(testAdmin.get(1),"Borussia Dortmund");
-            Verein leverkusen = new Verein(testAdmin.get(2),"Bayern Leverkusen");
+            Verein leverkusen = new Verein(testAdmin.get(2),"Bayer Leverkusen");
 
             vereinRepository.saveAll(List.of(bayern, dortmund, leverkusen));
 
