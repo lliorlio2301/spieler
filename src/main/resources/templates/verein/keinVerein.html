@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Verein Dashboard</title>
+</head>
+<body>
+    <div class="leiste_oben">
+        <img th:src="@{/images/logo.jpg}" alt="App_Logo">
+        <h1>Spielerverwaltung</h1>
+
+        <div class="vertical">
+            <a type="button" th:href="@{/spielerverwaltung/super}" class="leisteButton">SuperUser</a>
+            <a th:href="@{/spielerverwaltung/homepage}" class="leisteButton">Homepage</a>      
+            <form th:action="@{/abmelden}" method="post" class="button">
+                <button type="submit">Abmelden</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="Titelseite">
+        <h2>Verein Dashboard</h2>
+    </div>
+
+    <p>Ihnen ist kein Verein zugewiesen</p>
+  
+</body>
+</html>
