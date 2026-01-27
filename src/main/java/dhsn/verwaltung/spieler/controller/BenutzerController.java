@@ -12,20 +12,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dhsn.verwaltung.spieler.model.domain.Spieler;
+import dhsn.verwaltung.spieler.model.domain.Verein;
+import dhsn.verwaltung.spieler.model.domain.VereinDTO.VereinRegDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerDTO;
 import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.service.BenutzerService;
+import dhsn.verwaltung.spieler.service.SpielerService;
+import dhsn.verwaltung.spieler.service.VereinService;
 import jakarta.validation.Valid;
+
+
 
 @Controller
 @RequestMapping("/spielerverwaltung/super")
 public class BenutzerController {
 
-    BenutzerService benutzerService;
+    private BenutzerService benutzerService;
+    private VereinService vereinService;
+    private SpielerService spielerService;
 
-    public BenutzerController(BenutzerService benutzerService) {
+    public BenutzerController(BenutzerService benutzerService, VereinService vereinService, SpielerService sSer) {
         this.benutzerService = benutzerService;
+        this.vereinService = vereinService;
+        this.spielerService = sSer;
     }
 
     @GetMapping
@@ -97,4 +108,45 @@ public class BenutzerController {
         benutzerService.deleteBenutzer(id);
         return "erfolg";
     }
+
+    @GetMapping("/vereinReg")
+    public String getVereinReg(Model model) {
+        model.addAttribute("freieAdmins", benutzerService.getFreieAdmins());
+        model.addAttribute("verein", new VereinRegDTO());
+        return "verein/vereinReg";
+    }
+
+    @PostMapping("/vereinReg")
+    public String neuerVerein(Model model, @ModelAttribute("verein") 
+    @Valid VereinRegDTO verein, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("freieAdmins", benutzerService.getFreieAdmins());
+            return "verein/vereinReg"; //HTML nochmal schicken 
+        }
+
+        Verein vereinDB = new Verein(verein.getAdmin(), verein.getName());
+        vereinService.save(vereinDB);
+        return "redirect:/spielerverwaltung/erfolg";
+    }
+
+    @GetMapping("/alleVereine")
+    public String getAlleVerine(Model model) {
+        model.addAttribute("vereine", vereinService.getAlleVereine());
+        return "verein/alleVereine";
+    }
+
+    @GetMapping("verein/spieler/{id}")
+    public String getMethodName(Model model, @PathVariable("id") Long id) {
+        Verein verein = vereinService.getVerein(id);
+        model.addAttribute("verein", vereinService.getVerein(id));
+        model.addAttribute("spielerListe", verein.getSpielerListe());
+        return "verein/vereinDashboard";
+    }
+
+    @PostMapping("verein/vereinDelete/{id}")
+     public String postMethodName(@PathVariable("id") Long id) {
+        vereinService.deleteVerein(id);
+        return "redirect:/spielerverwaltung/erfolg";  
+     }
+    
 }
