@@ -55,9 +55,12 @@
                         <button type="submit">Bestätigen</button>            
                     </div>
                 </form>
-                <form th:action="@{/spielerverwaltung/super/benutzer/delete/{id}(id=${benutzer.id})}" method="post">
+                 <div class="horizontal">
+                    <form th:action="@{/spielerverwaltung/super/benutzer/delete/{id}(id=${benutzer.id})}" method="post">
                         <button type="submit" class="loeschenButton">Löschen</button>
-                </form>
+                    </form>
+                    <a th:href="@{/spielerverwaltung/admin/registrierung}" class="leisteButton">Abbrechen</a> 
+                </div>
             </div>
         </div>
     </div>
