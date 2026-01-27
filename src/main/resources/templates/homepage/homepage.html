@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <html xmlns:th="http://www.thymeleaf.org">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Homepage</title>
 </head>
@@ -25,11 +23,19 @@
 
     <div class="">
         <div class="inhalt">
+            
             <div th:if="${fussballID}">
                 <h3>Deine Daten Pflegen</h3>
-                <a th:href="@{'/spielerverwaltung/spieler/'+${fussballID}}">Mein Profil bearbeiten</a>
-            <p th:if="${willkommenadmin}" class="willkommen" th:text="${willkommenadmin}">Willkommen</p>
-            <p th:if="${willkommensuper}" class="willkommen" th:text="${willkommensuper}">Willkommen</p>
+                <a th:href="@{'/spielerverwaltung/spieler/' + ${fussballID}}">Mein Profil bearbeiten</a>
+            </div> <div th:if="${willkommenadmin}">
+                <h3>Mannschaft Daten Pflegen</h3>
+                <a th:href="@{/spielerverwaltung/admin/verein}">Verein verwalten</a>
+            </div>
+
+            <div th:if="${willkommensuper}">
+                <p th:text="${willkommensuper}"></p>
+            </div>
+
         </div>
     </div>
 </body>
