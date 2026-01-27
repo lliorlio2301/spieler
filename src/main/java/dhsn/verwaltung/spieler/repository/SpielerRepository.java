@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface SpielerRepository extends JpaRepository<Spieler, Long> {
 
+    public List<Spieler> findByVereinIsNull();
     @Modifying
     @Transactional
     @Query(value = " INSERT INTO spieler (benutzer_id, vorname, nachname, position, rueckennummer, geburtsdatum, will_gehalts_erhoeung) "
