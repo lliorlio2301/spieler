@@ -87,9 +87,8 @@ public class BenutzerService {
 
   @Transactional
   public void deleteBenutzer(Long id) {
-    if (!benutzerRepository.existsById(id)) {
-     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt"); 
-    }
+    if (!benutzerRepository.existsById(id))throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt");
+     
     benutzerRepository.deleteById(id);
   }
 
