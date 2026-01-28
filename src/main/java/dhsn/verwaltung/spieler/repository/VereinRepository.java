@@ -10,6 +10,6 @@ import dhsn.verwaltung.spieler.model.identity.Benutzer;
 
 @Repository
 public interface VereinRepository extends JpaRepository<Verein, Long> {
-    Benutzer findByAdminId(Long id);    
+    Verein findByAdminId(Long id);    
     
 }

@@ -32,7 +32,7 @@ public class Verein {
     private List<Spieler> spielerListe = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "admin_id", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "admin_id", referencedColumnName = "id", unique = true, nullable = true)
     private Benutzer admin;
 
     private String name;

@@ -44,11 +44,24 @@ public class VereinService {
             spieler.setRueckennummer(0);
         }
 
-        Benutzer admin = benutzerRepository.findById(verein.getAdmin().getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt" ));;
-
-        admin.setVerwalteterVerein(null);
+        if (verein.getAdmin()!=null) {
+            Benutzer admin = benutzerRepository.findById(verein.getAdmin().getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: "+id+" unbekannt" ));;
+            admin.setVerwalteterVerein(null);
+        }
         
         System.out.println("VEREIN GELÖSCHT: " +verein.getName());
         vereinRepository.delete(verein);
+    }
+
+    public boolean existiertVereinByAdminId(Long id) {
+        Verein verein = vereinRepository.findByAdminId(id);
+        
+        if (verein == null) return false;         
+        return true;
+    }
+
+    public void entferneAdminAusVerein(Long admin_id) {
+        Verein verein = vereinRepository.findByAdminId(admin_id);
+        verein.setAdmin(null);
     }
 }

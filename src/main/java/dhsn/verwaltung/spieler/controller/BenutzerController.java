@@ -105,6 +105,7 @@ public class BenutzerController {
 
     @PostMapping("/benutzer/delete/{id}")
     public String deleteBenutzer(@PathVariable Long id) {
+        if (vereinService.existiertVereinByAdminId(id)) vereinService.entferneAdminAusVerein(id);
         benutzerService.deleteBenutzer(id);
         return "erfolg";
     }
