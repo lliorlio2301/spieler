@@ -27,7 +27,7 @@
     <div class="">
         <div class="vertical">
             <div class="tabelleContainer">
-                <h3>Vereineübersicht</h3>
+                <h3>Vereinübersicht</h3>
                 
                 <table class="tabelleSuperAdmin">
                     <thead>
@@ -42,8 +42,8 @@
                         <tr th:each="verein : ${vereine}">
                             <td th:text="${verein.id}">1</td>
                             <td th:text="${verein.name}">Bayern</td>
-                            <td th:text="${verein.admin.username}">user</td>
-                            
+                            <!-- ? ist ein Operator, der null zurückgibt anstatt eine Exception auszulösen -->
+                            <td th:text="${verein.admin?.username}">user</td>
                             <td>
                                 <div class="vertical">
                                     <a class="leisteButton"
