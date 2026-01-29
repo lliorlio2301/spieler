@@ -3,8 +3,6 @@ package dhsn.verwaltung.spieler.model.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

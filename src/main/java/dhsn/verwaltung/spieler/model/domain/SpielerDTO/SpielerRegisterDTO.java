@@ -11,7 +11,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SpielerRegisterDTO {
 
     @Valid
@@ -40,68 +44,10 @@ public class SpielerRegisterDTO {
 
     private int rueckennummer;
     
-    public int getRueckennummer() {
-        return rueckennummer;
-    }
-
-
-    public void setRueckennummer(int rueckennummer) {
-        this.rueckennummer = rueckennummer;
-    }
-
 
     public SpielerRegisterDTO(){}   
 
-    
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPasswort() {
-        return passwort;
-    }
-
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
-    }
-
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getNachname() {
-        return nachname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
     public Integer getAlter() {
         return Period.between(geburtsdatum, LocalDate.now()).getYears();
-    }
-
-    public LocalDate getGeburtsdatum() {
-        return geburtsdatum;
-    }
-
-    public void setGeburtsdatum(LocalDate geburtsdatum) {
-        this.geburtsdatum = geburtsdatum;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 }

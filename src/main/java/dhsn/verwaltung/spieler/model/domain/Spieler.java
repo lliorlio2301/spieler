@@ -6,15 +6,17 @@ import java.time.Period;
 import dhsn.verwaltung.spieler.model.identity.Benutzer;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter //Erstellt automatisch Getters und Setters 
 @Entity
 @Table(name = "spieler")
 //Referenz zu Benutzer Tabelle - Es ist FK & PK - Kein ID-Feld notwendig
@@ -66,63 +68,7 @@ public class Spieler extends Benutzer{
         super(username, passwort, role);
     }
 
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getNachname() {
-        return nachname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
     public Integer getAlter() {
         return Period.between(geburtsdatum, LocalDate.now()).getYears();
-    }
-
-    public LocalDate getGeburtsdatum() {
-        return geburtsdatum;
-    }
-
-    public void setGeburtsdatum(LocalDate geburtsdatum) {
-        this.geburtsdatum = geburtsdatum;
-    }
-
-    public int getRueckennummer() {
-        return rueckennummer;
-    }
-
-    public void setRueckennummer(int rueckennummer) {
-        this.rueckennummer = rueckennummer;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public boolean isWillGehaltsErhoeung() {
-        return willGehaltsErhoeung;
-    }
-
-    public void setWillGehaltsErhoeung(boolean kannspielen) {
-        this.willGehaltsErhoeung = kannspielen;
-    }
-
-    public Verein getVerein() {
-        return verein;
-    }
-
-    public void setVerein(Verein verein) {
-        this.verein = verein;
     }
 }

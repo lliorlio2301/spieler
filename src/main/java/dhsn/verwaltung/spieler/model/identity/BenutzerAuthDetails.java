@@ -25,8 +25,7 @@ public class BenutzerAuthDetails implements UserDetails {
         this.password = benutzer.getPasswort();
         this.role = benutzer.getRole();
     }
-
-    //
+    
     public Long getId() {
         return id;
     }

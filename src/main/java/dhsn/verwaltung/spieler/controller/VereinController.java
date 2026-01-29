@@ -20,12 +20,6 @@ import dhsn.verwaltung.spieler.service.BenutzerService;
 import dhsn.verwaltung.spieler.service.SpielerService;
 import dhsn.verwaltung.spieler.service.VereinService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
-
-
-
 
 @Controller
 @RequestMapping("/spielerverwaltung/admin/verein")

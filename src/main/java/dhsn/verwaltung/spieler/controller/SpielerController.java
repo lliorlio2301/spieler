@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dhsn.verwaltung.spieler.model.domain.Position;
 import dhsn.verwaltung.spieler.model.domain.SpielerDTO.SpielerRegisterDTO;
 import dhsn.verwaltung.spieler.model.domain.SpielerDTO.SpielerUpdateDTO;
-import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.service.SpielerService;
 import jakarta.validation.Valid;
 
@@ -79,18 +78,10 @@ public class SpielerController {
     ) {
     
       if(br.hasErrors()){
-
-        System.out.println("--- VALIDIERUNGSFEHLER GEFUNDEN ---");
-        
-        br.getAllErrors().forEach(error -> {
-            System.out.println(error.toString());
-        });
-        
-        System.out.println("-----------------------------------");
-        
+        System.out.println("--- VALIDIERUNGSFEHLER GEFUNDEN ---\n" + br.getAllErrors() +"\n---------------------------");
         //nochmal Enums schicken  
         model.addAttribute("positionen", Position.values());
-          return "spieler/editSpieler"; 
+        return "spieler/editSpieler"; 
         }
     spielerService.speichernEditSpieler(spielerDTO, id);
 

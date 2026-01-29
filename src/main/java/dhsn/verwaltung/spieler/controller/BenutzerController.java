@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dhsn.verwaltung.spieler.model.domain.Spieler;
 import dhsn.verwaltung.spieler.model.domain.Verein;
 import dhsn.verwaltung.spieler.model.domain.VereinDTO.VereinRegDTO;
 import dhsn.verwaltung.spieler.model.identity.Role;
 import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerDTO;
 import dhsn.verwaltung.spieler.model.identity.DTO.BenutzerIdDTO;
 import dhsn.verwaltung.spieler.service.BenutzerService;
-import dhsn.verwaltung.spieler.service.SpielerService;
 import dhsn.verwaltung.spieler.service.VereinService;
 import jakarta.validation.Valid;
 
@@ -31,12 +29,10 @@ public class BenutzerController {
 
     private BenutzerService benutzerService;
     private VereinService vereinService;
-    private SpielerService spielerService;
 
-    public BenutzerController(BenutzerService benutzerService, VereinService vereinService, SpielerService sSer) {
+    public BenutzerController(BenutzerService benutzerService, VereinService vereinService) {
         this.benutzerService = benutzerService;
         this.vereinService = vereinService;
-        this.spielerService = sSer;
     }
 
     @GetMapping
