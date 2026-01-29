@@ -44,10 +44,7 @@
                                 <td th:text="${benutzer.role.name}">Torwart</td>
 
                                 <td>
-                                    <!-- 
-                                    {id} Platzhalter 
-                                        Zuweisung des Platzhalters (id=${spieler.id}) 
-                                    -->
+                                    <!--  {id} Platzhalter Zuweisung des Platzhalters (id=${spieler.id}) -->
                                     <a class="leisteButton" 
                                     th:href="@{/spielerverwaltung/super/benutzer/{id}(id=${benutzer.id})}"
                                     >Edit</a>
